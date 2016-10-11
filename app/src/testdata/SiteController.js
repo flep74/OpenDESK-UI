@@ -114,7 +114,6 @@
 			vm.loadContents();
 
 			vm.createFolder = function (folderName) {
-
 				var currentFolderNodeRef;
 				var cmisQuery = $stateParams.projekt + "/documentLibrary/" + $stateParams.path;
 
