@@ -1,4 +1,5 @@
 var globalHeaderMenu = require('../common/globalHeader.po.js');
+var oeUtils = require('../common/utils');
 var date = new Date();
 var projectName = "projektnavn " + date.getTime();
 var projectList;
@@ -19,6 +20,8 @@ var CreateProjectPage = function () {
     }
 
     public.createProject = function() {
+
+        oeUtils.emptyTrashcan();
     	
     	var newProjectBtn = element(by.css('[ng-click="vm.newSite($event)"]'));
     	var projectNameInput = element(by.model('newSiteName'));

@@ -49,6 +49,7 @@ function createWebserver(config) {
             .pipe($.webserver({
                 open: false, // Open up a browser automatically
                 host: '0.0.0.0', // hostname needed if you want to access the server from anywhere on your local network
+                directoryListing: false,
                 middleware: [],
                 proxies: [{
                     source: '/alfresco',

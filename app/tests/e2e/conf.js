@@ -16,7 +16,7 @@ exports.config = {
     jasmineNodeOpts: {
         showColors: true,
         isVerbose: true,
-        includeStackTrace: true,
+        includeStackTrace: true
     },
     seleniumPort: 4840,
 
@@ -61,7 +61,10 @@ exports.config = {
         login: './login/*.test.js',
         projects: './projects/*.test.js',
         folders: './folders/*.test.js',
-        documents: './documents/*.test.js'
+        documents: './documents/*.test.js',
+        //projects: './projects/*.test.js',
+        members: './members/*.test.js'
+        //header: './common/*.test.js',
         //case: './cases/*.test.js',
         //users: './users/*.test.js',
         //admin: './admin/*.test.js'

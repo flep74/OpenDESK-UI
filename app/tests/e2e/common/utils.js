@@ -24,3 +24,23 @@ module.exports.getRandomEmail = function () {
     }
     return strEmail + "@magenta.dk";
 };
+
+
+module.exports.emptyTrashcan = function () {
+
+    var request = require("request");
+
+    request("http://localhost:8080/alfresco/service/api/login?u=admin&pw=admin", function (error, response, body) {
+        ticket = body.replace("<?xml version=\"1.0\" encoding=\"UTF-8\"?>", "")
+        ticket = ticket.replace("<ticket>", "")
+        ticket = ticket.replace("</ticket>", "")
+
+        url = "http://localhost:8080/alfresco/s/purge?alf_ticket=" + ticket.trim();
+
+        request(url, function (error, response, body) {
+            console.log(body);
+        });
+
+
+    });
+}
