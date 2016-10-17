@@ -23,12 +23,11 @@ var DeleteProjectPage = function () {
     	
     	//Detect project to delete
     	var projectToDelete = element.all(by.repeater('project in vm.sites')).get(0).getText();
-    	
     	var projectOptionsBtn = element.all(by.css('[ng-click="vm.openMenu($mdOpenMenu, $event)"]')).first();
     	var selectDeleteBtn = element.all(by.css('[ng-click="vm.deleteSiteDialog(project.shortName)"]')).last();
         var deleteProjectBtn = element(by.css('[aria-label="Ja"]'));
     	
-        browser.driver.sleep(500);
+        //browser.driver.sleep(500);
                 
         projectOptionsBtn.click();
         
