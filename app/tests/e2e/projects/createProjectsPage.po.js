@@ -23,13 +23,11 @@ var CreateProjectPage = function () {
 
         oeUtils.emptyTrashcan();
     	
-    	var goToProjectBtn = element(by.css('a[href^="#/projekter"]')); 
     	var newProjectBtn = element(by.css('[ng-click="vm.newSite($event)"]'));
     	var projectNameInput = element(by.model('newSiteName'));
         var descriptionInput = element(by.model('newSiteDescription'));
         var addProjectBtn = element(by.css('[aria-label="Tilføj"]'));
 
-        goToProjectBtn.click();
         newProjectBtn.click();
         
         projectNameInput.sendKeys(projectName);
