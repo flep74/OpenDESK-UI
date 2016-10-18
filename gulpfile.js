@@ -81,7 +81,7 @@ gulp.task('scripts', function() {
             .pipe($.rename({suffix: '.min'}))
             .pipe($.stripDebug())
             .pipe($.ngAnnotate())
-            .pipe($.uglify())
+            //.pipe($.uglify())
             .pipe(gulp.dest(dist.folder))
             .on('error', $.util.log);
 });

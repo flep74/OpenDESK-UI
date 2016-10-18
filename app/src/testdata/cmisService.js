@@ -11,6 +11,7 @@ angular.module('openDeskApp.documents').factory('cmisService', function ($http) 
     },
 
     getNode: function (path) {
+      console.log("get" + path);
       return $http.jsonp(cmisBaseUrl + 'root/sites/' + path + '?cmisselector=object&' + callback);
     },
 

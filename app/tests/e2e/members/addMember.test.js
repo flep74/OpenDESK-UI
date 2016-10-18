@@ -1,22 +1,28 @@
-var constants = require('../common/constants');
+
 var globalHeader = require('../common/globalHeader.po.js');
-var addMemberPage = require('./addMemberPage.po.js');
-var createProjectPage = require('../projects/createProjectsPage.po.js');
-
-
-
-
-
-
-
+//var constants = require('../common/constants');
+//var addMemberPage = require('./addMemberPage.po.js');
+var loginPage = require('../login/loginPage.po.js');
 
 describe('openESDH login page', function() {
 
-    console.log ("constants.PROJECT_NAME");
-    console.log (constants.PROJECT_NAME);
-    console.log (angular);
 
-    //createProjectPage.createProject();
+    //Executed before each of the "it" tests
+    beforeEach(function () {
+        loginPage.loginAsAdmin();
+    });
+
+//logout and wait for 2 secs
+    afterEach(function () {
+        loginPage.logout();
+    });
+
+
+    browser.get("http://localhost:8000/#/projekter/test").then (function(response) {
+        console.log("done going to projekter/test");
+    });
+
+    browser.driver.sleep(5500);
 
     //it('should be able to access login page and login to user dashboard', function() {
     //    addMemberPage.addMember("","","");

@@ -1,5 +1,7 @@
 var HtmlScreenshotReporter = require('protractor-jasmine2-screenshot-reporter');
 
+// https://www.npmjs.com/package/protractor-html-screenshot-reporter
+
 exports.config = {
     capabilities: {'browserName': 'chrome'},
     /*multiCapabilities: [
@@ -24,6 +26,14 @@ exports.config = {
     seleniumArgs: ["-Djava.security.egd=file:/dev/./urandom"],
 
     onPrepare: function () {
+
+
+        //console.log("It's located in " + __dirname);
+
+
+
+
+
         browser.driver.manage().window().setSize(1440, 800);
         browser.get('http://localhost:8000/#');
         browser.getCapabilities().then(function (capabilities) {
@@ -56,14 +66,18 @@ exports.config = {
                 }*!/
             })
         );*/
-    },
-    suites: {
-        login: './login/*.test.js',
-        //projects: './projects/*.test.js',
-        members: './members/*.test.js'
-        //header: './common/*.test.js',
-        //case: './cases/*.test.js',
-        //users: './users/*.test.js',
-        //admin: './admin/*.test.js'
     }
+    //suites: {
+    //    login: './login/*.test.js',
+    //    //loaddata: './loaddata/*.test.js'
+    //    //projects: './projects/*.test.js',
+    //    members: './members/*.test.js'
+    //    //header: './common/*.test.js',
+    //    //case: './cases/*.test.js',
+    //    //users: './users/*.test.js',
+    //    //admin: './admin/*.test.js'
+    //}
+
+
+    //suites : {setup : ['./loaddata/*.test.js'], all: ['./login/*.test.js']}
 };

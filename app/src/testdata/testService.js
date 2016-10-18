@@ -1,91 +1,141 @@
 'use strict';
 
-angular.module('openDeskApp.testdata').factory('testService', function ($http, $window, alfrescoNodeUtils, siteService, cmisService) {
+
+
+angular.module('openDeskApp.testdata').factory('testService', function ($http, $window, alfrescoNodeUtils, siteService, cmisService, $q) {
     var restBaseUrl = '/alfresco/s/api/';
 
-    var testSite1_name = "test1"
+
+    var testSite1_name = "fhp";
+    var testSite1_members = [{name : "abbecher", role : "siteConsumer"}];
+
+    var testSite2_name = "fhp2"
+
+    var sites = new Array();
+    sites.push(testSite1_name );
+    sites.push(testSite2_name );
+
+
+    var files = [{name : "android.pdf", path : "app/src/testdata/android.pdf", mimetype : "application/pdf"},
+                 {name : "guide_region_midt-5.odt", path : "app/src/testdata/guide_region_midt-5.odt", mimetype : "application/vnd.oasis.opendocument.text"}];
 
 
     return {
+
         loadSites: function () {
-             siteService.createSite(testSite1_name, "blabla");
+
+
+            var defer = $q.defer();
+            var promises = [];
+
+            function lastTask(){
+
+               console.log("last task")
+                    defer.resolve();
+
+            }
+
+
+             for (var i in sites) {
+
+               let s = sites[i];
+
+                 console.log("creating site" + s);
+
+                 promises.push(siteService.createSite(s, "blabla"));
+
+             }
+
+            $q.all(promises).then(lastTask);
+            return defer.promise;
         },
 
         addDocumentsToSites: function () {
 
-            var currentFolderNodeRef;
-            var cmisQuery = testSite1_name + "/documentLibrary/"
-            var newFolderNodeRef;
 
-            cmisService.getNode(cmisQuery).then(function (val) {
-                currentFolderNodeRef = val.data.properties["alfcmis:nodeRef"].value;
+            function uploadDocuments(siteName) {
 
-                var props = {
-                    prop_cm_name: "1",
-                    prop_cm_title: "2",
-                    alf_destination: currentFolderNodeRef
-                };
+                console.log("upload til " + siteName);
 
-                //var newFolderNodeRef = siteService.createFolder("cm:folder", props);
-                //console.log(newFolderNodeRef);
+                var currentFolderNodeRef;
+                var cmisQuery = siteName + "/documentLibrary/"
 
-                return $http.get('http://localhost:8000/app/src/testdata/android.pdf', {responseType:'arraybuffer'} ).then(function (response) {
+                return cmisService.getNode(cmisQuery).then(function (val) {
 
+                    console.log("hej: " + ":" + siteName + ":= "+ val);
 
-                    console.log(response);
+                    currentFolderNodeRef = val.data.properties["alfcmis:nodeRef"].value;
 
-                    var file = new Blob([response.data], {type: 'application/pdf'});
-                    //var test =  new File(response.data, "flemming.pdf", {type: 'application/pdf'});
-                    file.name = "hugo.pdf"
+                    console.log("hej fra cmisService: " + siteName + " : " + currentFolderNodeRef);
 
-                    console.log(file);
-                    siteService.uploadFiles(file, currentFolderNodeRef);
+                    for (var i in files) {
+
+                        console.log(i + "til" + siteName);
+
+                        let f = files[i];
+
+                        $http.get('http://localhost:8000/' + f.path, {responseType: 'arraybuffer'}).then(function (response) {
 
 
-                })
+                            // todo dynamize the mimetype
+                            var file = new Blob([response.data], {type: 'application/pdf'});
+                            file.name = f.name
 
-                //
-                //$http({method: 'GET', url: 'http://localhost:8000/app/src/testdata/android.pdf'}, {responseType:'arraybuffer'}).
-                //    success(function(data, status, headers, config) {
-                //
-                //
-                //
-                //
-                //
-                //    }).
-                //    error(function(data, status, headers, config) {
-                //        // handle error
-                //    });
-                //
-                //
-                //
-                //var bb = new Blob();
-                //
-                //var xhr = new XMLHttpRequest();
-                //xhr.open('GET', 'http://localhost:8000/app/src/testdata/testService.js', true);
-                //
-                //xhr.responseType = 'arraybuffer';
-                //console.log(xhr.response);
-
-                //bb.append(xhr.response); // Note: not xhr.responseText
-
-//at this point you have the equivalent of: new File()
-//                var blob = bb.getBlob('image/png');
+                            siteService.uploadFiles(file, currentFolderNodeRef);
+                        })
+                    }
+                }).catch(console.log.bind("test:" + console)); //;
+            }
 
 
 
+            var defer = $q.defer();
+            var promises = [];
+
+            function lastTask(){
+
+               console.log("last task")
+                    defer.resolve();
+
+            }
+
+
+             for (var i in sites) {
+
+               let s = sites[i];
+
+                 console.log("uploading documents" + s);
+
+                 promises.push( uploadDocuments(sites[i]));
+
+             }
+
+            $q.all(promises).then(lastTask);
+            return defer.promise;
 
 
 
+            //
+            //for (var i in sites) {
+            //    uploadDocuments(sites[i]);
+            //}
+        },
 
-            });
+        addMembersToSite : function() {
+            // todo dynamize the addMember
 
+            siteService.addMemberToSite(testSite1_name, "abeecher", "SiteConsumer");
+        },
+        removeTestDate: function() {
 
+            for (var i in sites) {
 
+                let s = sites[i];
 
+                siteService.deleteSite(s);
 
+            }
 
-
-    }
+        }
     }
 });

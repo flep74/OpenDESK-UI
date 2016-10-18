@@ -40,7 +40,7 @@ angular.module('openDeskApp.sites').factory('siteService', function ($http, $win
 
                 var type = "cm:folder";
 
-                $http.post('/api/type/' + type + '/formprocessor', props).then(function (response) {
+                return $http.post('/api/type/' + type + '/formprocessor', props).then(function (response) {
                     var nodeRef = response.data.persistedObject;
                     return nodeRef;
                 });

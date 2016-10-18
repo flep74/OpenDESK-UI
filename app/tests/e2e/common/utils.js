@@ -40,7 +40,21 @@ module.exports.emptyTrashcan = function () {
         request(url, function (error, response, body) {
             console.log(body);
         });
-
-
     });
+}
+
+module.exports.loaddata = function () {
+
+
+    browser.get("http://localhost:8000/#/testdata");
+
+
+
+    //var request = require("request");
+    //
+    //request("http://localhost:8000/#/testdata", function (error, response, body) {
+    //
+    //    console.log(body);
+    //
+    //});
 }
