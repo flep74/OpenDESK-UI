@@ -3,7 +3,7 @@ var HtmlScreenshotReporter = require('protractor-jasmine2-screenshot-reporter');
 // https://www.npmjs.com/package/protractor-html-screenshot-reporter
 
 exports.config = {
-    capabilities: {'browserName': 'chrome'},
+    capabilities: {'browserName': 'firefox'},
     /*multiCapabilities: [
      {'browserName': 'chrome'},
      {'browserName': 'firefox'},
@@ -70,9 +70,9 @@ exports.config = {
     },
     suites: {
         login: './login/*.test.js',
-        projects: './projects/*.test.js',
-        folders: './folders/*.test.js',
-        documents: './documents/*.test.js',
+        //projects: './projects/*.test.js',
+        //folders: './folders/*.test.js',
+        //documents: './documents/*.test.js',
         //projects: './projects/*.test.js',
         members: './members/*.test.js'
         //header: './common/*.test.js',
