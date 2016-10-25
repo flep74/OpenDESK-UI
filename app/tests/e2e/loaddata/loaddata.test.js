@@ -18,9 +18,10 @@ describe('openESDH login page', function() {
 
     it('should be able to access login page and login to user dashboard', function() {
 
-        //browser.get("http://localhost:8000/#/testdata").then (function(response) {
-        //    console.log("done");
-        //});
+        browser.get("http://localhost:8000/#/testdata").then (function(response) {
+            browser.driver.sleep(5500);
+            console.log("done");
+        });
 
 
 
