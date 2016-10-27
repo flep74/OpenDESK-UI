@@ -107,7 +107,7 @@ gulp.task('css', function() {
 gulp.task('e2e-tests', function() {
     gulp.src(paths.e2e_tests)
             .pipe($.protractor.protractor({
-                configFile: paths.protractorConfigFile
+                configFile: "paths.protractorConfigFile"
             }))
             .on('error', function(e) {
                 throw e;
