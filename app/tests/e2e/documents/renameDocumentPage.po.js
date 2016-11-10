@@ -1,4 +1,5 @@
 var globalHeaderMenu = require('../common/globalHeader.po.js');
+var constants = require('../common/constants');
 var date = new Date();
 var documentRenamed = "dokument-omdøbt " + date.getTime();
 var documentList;
@@ -11,7 +12,9 @@ var RenameDocumentPage = function () {
     
 	public.getDocumentList = function() {
 		documentList = element.all(by.repeater('content in contents')).getText();
-	    return documentList	
+		console.log("document_list")
+		console.log(documentList);
+	    return documentList
 	}
     
     public.getRenamedDocument = function() {
@@ -27,24 +30,27 @@ var RenameDocumentPage = function () {
 	    		lastBreadcrumbLink.click();
 	      	});
     	*/
-    	browser.driver.sleep(5000);
-	    	//Detect project to rename
-	    	var documentToRename = element.all(by.repeater('content in contents')).get(0).getText();
-	    	var documentOptionsBtn = element.all(by.css('[ng-click="vm.openMenu($mdOpenMenu, $event)"]')).first();
+		return browser.get("http://localhost:8000/#/projekter/" + constants.PROJECT_NAME_1).then (function(response) {
+			//Detect project to rename
+			var documentToRename = element.all(by.repeater('content in contents')).get(0).getText();
+			var documentOptionsBtn = element.all(by.css('[ng-click="vm.openMenu($mdOpenMenu, $event)"]')).first();
 
-	    	documentOptionsBtn.click();
-	    	
-	    	var selectRenameBtn = element.all(by.css('[ng-click="vm.renameDocumentDialog($event, content.nodeRef)"]')).last().getText();
-	        	
-	    	selectRenameBtn.click();
-	    	
-	    	var renameInput = element(by.model('dialog.result'));
-	    	var renameDocumentBtn = element(by.css('[aria-label="Omdøb"]'));
-	    	
-	        renameInput.clear();
-	        renameInput.sendKeys(documentRenamed);
-	        
-	        renameDocumentBtn.click();
+			documentOptionsBtn.click();
+
+			var selectRenameBtn = element.all(by.css('[ng-click="vm.renameDocumentDialog($event, content.nodeRef)"]')).last().getText();
+
+			selectRenameBtn.click();
+
+			var renameInput = element(by.model('dialog.result'));
+			var renameDocumentBtn = element(by.css('[aria-label="Omdøb"]'));
+
+			renameInput.clear();
+			renameInput.sendKeys(documentRenamed);
+
+			renameDocumentBtn.click();
+			console.log("done")
+
+		});
 	        
     }; 
     

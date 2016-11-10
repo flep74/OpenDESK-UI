@@ -30,7 +30,7 @@ module.exports.emptyTrashcan = function () {
 
     var request = require("request");
 
-    request("http://localhost:8080/alfresco/service/api/login?u=admin&pw=admin", function (error, response, body) {
+    request("http://localhost:8080/alfresco/service/api/login?u=admin&pw=bullerfisk1992", function (error, response, body) {
         ticket = body.replace("<?xml version=\"1.0\" encoding=\"UTF-8\"?>", "")
         ticket = ticket.replace("<ticket>", "")
         ticket = ticket.replace("</ticket>", "")

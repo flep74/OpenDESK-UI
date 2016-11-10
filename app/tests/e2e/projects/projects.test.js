@@ -1,14 +1,23 @@
 var globalHeader = require('../common/globalHeader.po.js');
+var loginPage = require('../login/loginPage.po.js');
 var openProjectsPage = require('./openProjectsPage.po.js');
 var createProjectPage = require('./createProjectsPage.po.js');
 var deleteProjectPage = require('./deleteProjectPage.po.js');
 var renameProjectPage = require('./renameProjectPage.po.js');
 
+
+
+//Executed before each of the "it" tests
+beforeEach(function () {
+    loginPage.loginAsAdmin();
+});
+
 describe('openDESK create project', function() {
+
 
     it('should be able to create a new project', function() {
     	openProjectsPage.openProjects();
-        //createProjectPage.createProject();
+        createProjectPage.createProject();
         
         //deleteProjectPage.deleteProject();
         
@@ -17,25 +26,25 @@ describe('openDESK create project', function() {
     });
 });
 
-
-describe('openDESK delete project', function() {
-
-    it('should be able to delete an existing project', function() {
-        //deleteProjectPage.deleteProject();
-        
-      //the deleted project is not represented in the project list
-        //expect(deleteProjectPage.getProjectList().getText()).not.toMatch(deleteProjectPage.getDeletedProject());
-    });
-});
-
-describe('openDESK rename project', function() {
-
-    it('should be able to rename an existing project', function() {
-    	//New project need to be created, because project may just have been deleted
-    	//createProjectPage.createProject();
-        //renameProjectPage.renameProject();
-        
-      //the renamed project is represented in the project list
-        //expect(renameProjectPage.getProjectList().getText()).toMatch(renameProjectPage.getRenamedProject());
-    });
-});
+//
+//describe('openDESK delete project', function() {
+//
+//    it('should be able to delete an existing project', function() {
+//        //deleteProjectPage.deleteProject();
+//
+//      //the deleted project is not represented in the project list
+//        //expect(deleteProjectPage.getProjectList().getText()).not.toMatch(deleteProjectPage.getDeletedProject());
+//    });
+//});
+//
+//describe('openDESK rename project', function() {
+//
+//    it('should be able to rename an existing project', function() {
+//    	//New project need to be created, because project may just have been deleted
+//    	//createProjectPage.createProject();
+//        //renameProjectPage.renameProject();
+//
+//      //the renamed project is represented in the project list
+//        //expect(renameProjectPage.getProjectList().getText()).toMatch(renameProjectPage.getRenamedProject());
+//    });
+//});

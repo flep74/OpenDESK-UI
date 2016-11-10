@@ -44,9 +44,9 @@ var LoginPage = function () {
     };
 
     public.logout = function() {
-        //globalHeaderMenu.getHeaderMenuItem().userMenuBtn.click();
-        //element(by.xpath('//button[@id="logout"]')).click();
-        //browser.driver.sleep(2000);
+        globalHeaderMenu.getHeaderMenuItem().userMenuBtn.click();
+        element(by.xpath('//button[@id="logout"]')).click();
+        browser.driver.sleep(2000);
     };
 
     return public;

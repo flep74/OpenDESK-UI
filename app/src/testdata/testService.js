@@ -6,10 +6,10 @@ angular.module('openDeskApp.testdata').factory('testService', function ($http, $
     var restBaseUrl = '/alfresco/s/api/';
 
 
-    var testSite1_name = "fhp";
+    var testSite1_name = "Magenta_1";
     var testSite1_members = [{name : "abbecher", role : "siteConsumer"}];
 
-    var testSite2_name = "fhp2"
+    var testSite2_name = "Magenta_2"
 
     var sites = new Array();
     sites.push(testSite1_name );
