@@ -73,23 +73,32 @@ beforeEach(function () {
 //    });
 //});
 
+
 //describe('openDESK copy document', function() {
-//
 //    it('should be able to copy an existing document to another location', function() {
-//    	//searchDocumentPage.searchDocument();
-//    	//copyDocumentPage.copyDocument();
 //
-//        //the copied folder is represented in the list
-//        //expect(copyDocumentPage.getDocumentList()).toMatch(copyDocumentPage.getDocumentCopied());
+//        return browser.get("http://localhost:8000/#/projekter/" + constants.PROJECT_NAME_2 ).then (function(response) {
+//            copyDocumentPage.copyDocument();
+//            //the copied file is represented in the list
+//            expect(copyDocumentPage.getDocumentList()).toMatch("Copy of " + constants.file_2.name);
+//        });
 //    });
 //});
-//describe('openDESK delete document', function() {
-//
-//    it('should be able to delete an existing document', function() {
-//    	//searchDocumentPage.searchDocument();
-//    	//deleteDocumentPage.deleteDocument();
-//
-//        //the created folder is represented in the list
-//        //expect(deleteDocumentPage.getDocumentList()).not.toMatch(deleteDocumentPage.getDeletedDocumentName());
-//    });
-//});
+
+describe('openDESK delete document', function() {
+
+    it('should be able to delete an existing document', function() {
+
+
+        return browser.get("http://localhost:8000/#/projekter/" + constants.PROJECT_NAME_2 ).then (function(response) {
+            deleteDocumentPage.deleteDocument();
+
+           ////the created folder is represented in the list
+           // expect(deleteDocumentPage.getDocumentList()).not.toMatch(deleteDocumentPage.getDeletedDocumentName());
+
+
+
+
+        });
+    });
+});
