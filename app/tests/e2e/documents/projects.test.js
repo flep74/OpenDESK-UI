@@ -93,8 +93,8 @@ describe('openDESK delete document', function() {
         return browser.get("http://localhost:8000/#/projekter/" + constants.PROJECT_NAME_2 ).then (function(response) {
             deleteDocumentPage.deleteDocument();
 
-           ////the created folder is represented in the list
-           // expect(deleteDocumentPage.getDocumentList()).not.toMatch(deleteDocumentPage.getDeletedDocumentName());
+           //the created folder is represented not in the list
+            expect(deleteDocumentPage.getDocumentList()).not.toMatch(constants.file_3.name);
 
 
 

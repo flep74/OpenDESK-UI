@@ -4,11 +4,13 @@ var deletedDocumentName = "";
 var documentList = "";
 var constants = require('../common/constants');
 
+var BreakException = {};
+
 var DeleteDocumentPage = function () {
     
     var public = {};
     
-    console.log("search document");
+    console.log("delete document");
     
 	public.getDocumentList = function() {
 		documentList = element.all(by.repeater('content in contents')).getText();
@@ -27,39 +29,44 @@ var DeleteDocumentPage = function () {
 
 		var files = element.all(by.repeater('content in contents'));
 
+		try {
+			element.all(by.repeater('content in contents')).each(function (flap, index) {
 
-		element = files.filter(function(elem) {
-				return elem.getText().then(function(text) {
-					return (text.indexOf(constants.file_3.name) >= 0)
+				var documentOptionsBtn = flap.all(by.css('[ng-click="vm.openMenu($mdOpenMenu, $event)"]')).first();
+
+
+				flap.getText().then(function (text) {
+
+					if (text.indexOf(constants.file_3.name) >= 0) {
+
+						documentOptionsBtn.click();
+						browser.driver.sleep(2000);
+
+
+						var selectdeleteBtn = element.all(by.css('[ng-click="vm.deleteFileDialog($event, content.nodeRef)"]')).last().getText();
+						selectdeleteBtn.click();
+
+						browser.driver.sleep(2000);
+
+						var deleteProjectBtn = element(by.css('[aria-label="Slet"]'));
+						deleteProjectBtn.click();
+
+						browser.driver.sleep(4000);
+
+
+					}
+
 				});
+
+
 			});
 
+		}
+		catch (e) {
+			console.log("hej");
+		}
 
-		element.getText().then(function (text) {
-			console.log(text);
-		});
-
-
-
-
-
-
-
-
-        //
-    	//var documentOptionsBtn = element.all(by.css('[ng-click="vm.openMenu($mdOpenMenu, $event)"]')).first();
-        //
-    	//documentOptionsBtn.click();
-    	//
-    	//var selectdeleteBtn = element.all(by.css('[ng-click="vm.deleteFileDialog($event, content.nodeRef)"]')).last().getText();
-        	//
-    	//selectdeleteBtn.click();
-    	//
-    	//var deleteProjectBtn = element(by.css('[aria-label="Slet"]'));
-    	//deleteProjectBtn.click();
-    	//
-    	//deletedDocumentName = documentToDelete;
-    }; 
+    };
     
     return public;
 };
