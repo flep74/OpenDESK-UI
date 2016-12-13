@@ -25,15 +25,22 @@ beforeEach(function () {
 //    });
 //});
 
-//
+
 //describe('openDESK preview document', function() {
 //
 //    it('should be able to search and preview an existing document', function() {
-//    	previewDocumentPage.previewDocument();
 //
-//        //the created folder is represented in the list
-//        expect(previewDocumentPage.getPreviewHeadline()).toContain(previewDocumentPage.getPreviewedDocument());
-//        previewDocumentPage.closeDialog();
+//
+//        return browser.get("http://localhost:8000/#/projekter/" + constants.PROJECT_NAME_2 ).then (function(response) {
+//            previewDocumentPage.previewDocument();
+//
+//            //the created folder is represented in the list
+//            expect(previewDocumentPage.getPreviewHeadline()).toContain(constants.file_2.name);
+//            previewDocumentPage.closeDialog();
+//        });
+//
+//
+//
 //    });
 //});
 
@@ -85,20 +92,20 @@ beforeEach(function () {
 //    });
 //});
 
-describe('openDESK delete document', function() {
-
-    it('should be able to delete an existing document', function() {
-
-
-        return browser.get("http://localhost:8000/#/projekter/" + constants.PROJECT_NAME_2 ).then (function(response) {
-            deleteDocumentPage.deleteDocument();
-
-           //the created folder is represented not in the list
-            expect(deleteDocumentPage.getDocumentList()).not.toMatch(constants.file_3.name);
-
-
-
-
-        });
-    });
-});
+//describe('openDESK delete document', function() {
+//
+//    it('should be able to delete an existing document', function() {
+//
+//
+//        return browser.get("http://localhost:8000/#/projekter/" + constants.PROJECT_NAME_2 ).then (function(response) {
+//            deleteDocumentPage.deleteDocument();
+//
+//           //the created folder is represented not in the list
+//            expect(deleteDocumentPage.getDocumentList()).not.toMatch(constants.file_3.name);
+//
+//
+//
+//
+//        });
+//    });
+//});

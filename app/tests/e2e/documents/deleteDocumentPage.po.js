@@ -23,12 +23,6 @@ var DeleteDocumentPage = function () {
     
     public.deleteDocument = function() {
 
-    	//Detect project to delete
-    	var documentToDelete = element.all(by.repeater('content in contents')).get(0).getText();
-
-
-		var files = element.all(by.repeater('content in contents'));
-
 		try {
 			element.all(by.repeater('content in contents')).each(function (flap, index) {
 
