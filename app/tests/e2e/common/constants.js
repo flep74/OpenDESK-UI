@@ -1,14 +1,13 @@
-
-
-
-
 var constants = {};
-
 
 constants.PROJECT_NAME_1 = "magenta_1";
 constants.PROJECT_NAME_2 = "magenta_2";
+constants.PROJECT_NAME_3 = "Magenta37";
+
 constants.PROJECT_NAME_USED_FOR_MOVE = "swsdp/Presentations";
 constants.PROJECT_NAME_USED_FOR_MOVE_AFTER_MOVE = "swsdp/Agency%20Files";
+
+constants.PROJECT_NAME_USED_FOR_RENAME_PROJECT = "Magenta_3";
 
 constants.PROJECT_NAME_USED_FOR_COPY = "swsdp/Presentations";
 

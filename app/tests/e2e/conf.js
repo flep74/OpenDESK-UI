@@ -18,8 +18,7 @@ exports.config = {
     jasmineNodeOpts: {
         showColors: true,
         isVerbose: true,
-        includeStackTrace: true
-    },
+        includeStackTrace: true},
     seleniumPort: 4840,
 
     /* Due to issues with slow Selenium startup due to RNG, see http://stackoverflow.com/questions/14058111/selenium-server-doesnt-bind-to-socket-after-being-killed-with-sigterm. */
@@ -69,11 +68,11 @@ exports.config = {
 
     },
     suites: {
-            //projects: './projects/*.test.js'
+            projects: './projects/*.test.js'
             //login: './login/*.test.js'
         //loaddata: './loaddata/*.test.js'
         //folders: './folders/*.test.js',
-        documents: './documents/*.test.js'
+        //documents: './documents/*.test.js'
         //projects: './projects/*.test.js',
         //members: './members/*.test.js'
         //header: './common/*.test.js',

@@ -56,7 +56,7 @@ var DeleteDocumentPage = function () {
 			});
 
 		}
-		catch (e) {
+		catch (StaleElementReferenceException) {
 			console.log("hej");
 		}
 
