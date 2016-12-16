@@ -28,7 +28,7 @@ var AddMemberPage = function () {
 
         addMemberName_element.sendKeys(member_name);
 
-        browser.sleep(3500);
+        browser.sleep(1500);
         browser.driver.actions().mouseMove(addMemberName_element);
         addMemberName_element.sendKeys(protractor.Key.ARROW_DOWN);
         addMemberName_element.sendKeys(protractor.Key.ENTER);
@@ -42,7 +42,7 @@ var AddMemberPage = function () {
 
         addMemberBtn.click();
 
-        browser.driver.sleep(2000);
+        browser.driver.sleep(1000);
 
     }
 

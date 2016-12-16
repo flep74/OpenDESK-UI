@@ -34,6 +34,7 @@ var CreateProjectPage = function () {
         descriptionInput.sendKeys("Jeg er overflødig");
                
         addProjectBtn.click();
+        browser.driver.sleep(1000);
     }; 
     
 

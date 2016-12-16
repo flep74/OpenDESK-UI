@@ -34,7 +34,7 @@ var UpdateMemberPage = function () {
             var documentOptionsBtn = filteredElements[0].all(by.css('[ng-click="vm.openMenu($mdOpenMenu, $event)"]')).first();
 
             documentOptionsBtn.click();
-            browser.driver.sleep(3000);
+            browser.driver.sleep(1000);
 
             var selectUpdateBtn = element.all(by.css('[ng-click="vm.updateMemberRoleDialog($event, member.authority)"]')).last();
 
@@ -42,11 +42,11 @@ var UpdateMemberPage = function () {
 
             selectUpdateBtn.click();
 
-            browser.driver.sleep(3000);
+            browser.driver.sleep(1000);
 
             var addMemberRole_element = element(by.model('newMemberRole'));
 
-            browser.sleep(3500);
+            browser.sleep(1500);
 
 
             addMemberRole_element.sendKeys(constants.role_for_update_member);

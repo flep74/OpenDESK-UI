@@ -33,6 +33,8 @@ var DeleteProjectPage = function () {
                 return elem.getText().then(function (text) {
                     //Match the text
 
+                    console.log(text);
+
                     return text.indexOf(constants.PROJECT_NAME_3) >= 0;
                 });
             }).then(function (filteredElements) {

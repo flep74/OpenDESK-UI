@@ -48,7 +48,6 @@ var RenameDocumentPage = function () {
 			renameInput.sendKeys(documentRenamed);
 
 			renameDocumentBtn.click();
-			console.log("done")
 
 		});
 	        

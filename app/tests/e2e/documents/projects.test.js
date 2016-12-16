@@ -11,11 +11,20 @@ var relocateDocumentPage = require('./relocateDocumentPage.po.js');
 
 //Executed before each of the "it" tests
 beforeEach(function () {
-    loginPage.loginAsAdmin();
+
 });
 
 
+describe('openDESK search document', function() {
 
+    it('should be able to search and find an existing document', function() {
+
+        loginPage.loginAsAdmin();
+
+    });
+});
+
+//
 //describe('openDESK search document', function() {
 //
 //    it('should be able to search and find an existing document', function() {
@@ -25,7 +34,7 @@ beforeEach(function () {
 //    });
 //});
 
-
+//
 //describe('openDESK preview document', function() {
 //
 //    it('should be able to search and preview an existing document', function() {

@@ -20,48 +20,44 @@ var DeleteDocumentPage = function () {
     public.getDeletedDocumentName = function() {
     	return deletedDocumentName;
     }
-    
-    public.deleteDocument = function() {
-
-		try {
-			element.all(by.repeater('content in contents')).each(function (flap, index) {
-
-				var documentOptionsBtn = flap.all(by.css('[ng-click="vm.openMenu($mdOpenMenu, $event)"]')).first();
 
 
-				flap.getText().then(function (text) {
-
-					if (text.indexOf(constants.file_3.name) >= 0) {
-
-						documentOptionsBtn.click();
-						browser.driver.sleep(2000);
+	public.deleteDocument = function() {
 
 
-						var selectdeleteBtn = element.all(by.css('[ng-click="vm.deleteFileDialog($event, content.nodeRef)"]')).last().getText();
-						selectdeleteBtn.click();
 
-						browser.driver.sleep(2000);
-
-						var deleteProjectBtn = element(by.css('[aria-label="Slet"]'));
-						deleteProjectBtn.click();
-
-						browser.driver.sleep(4000);
-
-
-					}
-
-				});
-
-
+		'use strict';
+		//Select all date elements and apply filter function
+		element.all(by.repeater('content in contents')).filter(function (elem) {
+			//Return the element or elements
+			return elem.getText().then(function (text) {
+				//Match the text
+				return text.indexOf(constants.file_3.name) >= 0;
 			});
+		}).then(function (filteredElements) {
 
-		}
-		catch (StaleElementReferenceException) {
-			console.log("hej");
-		}
+			browser.driver.sleep(5000);
 
-    };
-    
+			var documentOptionsBtn = filteredElements[0].all(by.css('[ng-click="vm.openMenu($mdOpenMenu, $event)"]')).first();
+
+			documentOptionsBtn.click();
+			browser.driver.sleep(3000);
+
+			var selectDeleteBtn = element.all(by.css('[ng-click="vm.deleteFileDialog($event, content.nodeRef)"]')).last();
+
+			browser.driver.manage().window().maximize();
+
+			selectDeleteBtn.click();
+
+			browser.driver.sleep(2500);
+			var deleteMemberBtn = element.all(by.css('[aria-label="Slet"]')).first();
+
+			deleteMemberBtn.click();
+
+			browser.driver.sleep(2500);
+		});
+	};
+
     return public;
 };
 

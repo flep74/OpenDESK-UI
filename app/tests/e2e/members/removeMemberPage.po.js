@@ -27,12 +27,12 @@ var RemoveMemberPage = function () {
             });
         }).then(function (filteredElements) {
 
-            browser.driver.sleep(5000);
+            browser.driver.sleep(1000);
 
             var documentOptionsBtn = filteredElements[0].all(by.css('[ng-click="vm.openMenu($mdOpenMenu, $event)"]')).first();
 
             documentOptionsBtn.click();
-            browser.driver.sleep(3000);
+            browser.driver.sleep(1000);
 
             var selectDeleteBtn = element.all(by.css('[ng-click="vm.deleteMemberDialog(vm.project, member.authority.userName);"]')).last();
 
@@ -40,12 +40,12 @@ var RemoveMemberPage = function () {
 
             selectDeleteBtn.click();
 
-            browser.driver.sleep(2500);
+            browser.driver.sleep(1500);
             var deleteMemberBtn = element.all(by.css('[aria-label="Slet"]')).first();
 
             deleteMemberBtn.click();
 
-            browser.driver.sleep(2500);
+            browser.driver.sleep(1500);
         });
     };
 
