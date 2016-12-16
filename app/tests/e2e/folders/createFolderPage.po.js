@@ -1,6 +1,8 @@
 var globalHeaderMenu = require('../common/globalHeader.po.js');
+var loginPage = require('../login/loginPage.po.js');
+var constants = require('../common/constants');
 var date = new Date();
-var folderName = "folder " + date.getTime();
+var folderName = constants.folder_to_be_created_and_deleted;
 var folderList;
 
 var CreateFolderPage = function () {
@@ -20,14 +22,11 @@ var CreateFolderPage = function () {
 
     public.createFolder = function() {
     	
-    	var selectProject = element.all(by.repeater('project in vm.sites')).get(0);
+
     	var folderNameInput = element(by.model('newFolderName'));
     	var addFolderBtn = element(by.css('[aria-label="Tilføj"]'));
     	
-    	
-    	selectProject.click();
-    	browser.driver.sleep(500);
-    	    	
+
     	newFolderBtn = element(by.css('[ng-click="vm.newFolderDialog($event)"]'));
     	
     	newFolderBtn.click();
@@ -36,6 +35,11 @@ var CreateFolderPage = function () {
     	folderNameInput.sendKeys(folderName);
     	
     	addFolderBtn.click();
+
+		browser.driver.navigate().refresh();
+
+		browser.driver.sleep(1000);
+
 
     }; 
     

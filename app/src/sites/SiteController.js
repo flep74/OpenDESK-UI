@@ -13,9 +13,6 @@
 			$scope.roles = [];
 
 
-
-
-
 			console.log("$stateParams");
 			console.log($stateParams);
 
@@ -141,7 +138,7 @@
 					parent: angular.element(document.body),
 					targetEvent: event,
 					scope: $scope,
-        	preserveScope: true,
+        			preserveScope: true,
 					clickOutsideToClose: true
 				});
 			};
