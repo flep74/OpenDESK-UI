@@ -5,8 +5,15 @@ var AddMemberPage = function () {
     var public = {};
 
 
-    public.addMember = function (project_name, member_name, member_role) {
+    public.getMembers = function() {
 
+        var result =  element.all(by.repeater('member in members'));
+
+        return result
+    }
+
+
+    public.addMember = function (project_name, member_name, member_role) {
 
         console.log("inside addMember");
 
@@ -35,7 +42,7 @@ var AddMemberPage = function () {
 
         addMemberBtn.click();
 
-        browser.driver.sleep(5000);
+        browser.driver.sleep(2000);
 
     }
 

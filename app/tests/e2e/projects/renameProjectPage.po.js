@@ -41,11 +41,12 @@ var RenameProjectPage = function () {
 
 				documentOptionsBtn.click();
 				browser.driver.sleep(2000);
-
+console.log("click1");
 
 				browser.driver.sleep(500);
 
 				selectRenameBtn.click();
+				console.log("click2");
 
 				browser.driver.sleep(500);
 
@@ -53,15 +54,11 @@ var RenameProjectPage = function () {
 				renameInput.sendKeys(projectRenamed);
 
 				renameProjectBtn.click();
+				console.log("click3");
 
 				browser.driver.sleep(500);
 			});
-
-
-    	
-
-	        
-    }; 
+    };
     
 
     return public;
