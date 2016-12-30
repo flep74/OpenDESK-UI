@@ -4,10 +4,14 @@
         .module('openDeskApp.sites')
         .controller('SitesController', SitesController);
 
-        function SitesController($scope, $mdDialog, $window, siteService, cmisService, $stateParams, searchService, $rootScope, documentService) {
+        function SitesController($scope, $mdDialog, $window, siteService, cmisService, $stateParams, searchService, $rootScope, documentService, siteProjectDepartmentService) {
+
 
 			var vm = this;
-			
+
+
+			siteProjectDepartmentService.createPDSite("test_fhp_2", "desc", "100");
+
 			siteService.getSites().then(function(val) {
 				vm.sites = val;
 				//console.log(typeof vm.sites[0].title);
