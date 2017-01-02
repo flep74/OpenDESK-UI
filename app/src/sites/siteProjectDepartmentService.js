@@ -5,6 +5,9 @@ angular.module('openDeskApp.sites').factory('siteProjectDepartmentService', func
 
     return {
 
+
+        // todo remove methods and resuse from siteService
+
         getSiteMembers: function (siteShortName) {
             return $http.get('/api/sites/' + siteShortName + '/memberships?authorityType=USER').then(function (response) {
                 return response.data;
@@ -74,11 +77,14 @@ angular.module('openDeskApp.sites').factory('siteProjectDepartmentService', func
                 return response.data;
             })
         },
-        createPDSite: function (siteName, description, sbsys) {
+        createPDSite: function (siteName, description, sbsys, owner, manager) {
             return $http.post('/alfresco/service/projectdepartment-create', {
                 PARAM_NAME: siteName,
                 PARAM_DESCRIPTION : description,
-                PARAM_SBSYS : sbsys
+                PARAM_SBSYS : sbsys,
+                PARAM_OWNER : owner,
+                PARAM_MANAGER : owner,
+                PARAM_TEMPLATE_NODEREF : "303d3e2a-b365-446a-9bb0-f50487643728"
             }).then(function (response) {
                 console.log(response);
                 return response;
