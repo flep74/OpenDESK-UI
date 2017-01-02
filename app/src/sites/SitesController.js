@@ -10,7 +10,7 @@
 			var vm = this;
 
 
-			siteProjectDepartmentService.createPDSite("test_fhp_5", "desc", "100", "fhp", "fhp");
+			siteProjectDepartmentService.createPDSite("test_fhp_7", "desc", "100", "center_1","fhp", "fhp", "303d3e2a-b365-446a-9bb0-f50487643728" );
 
 			siteService.getSites().then(function(val) {
 				vm.sites = val;
