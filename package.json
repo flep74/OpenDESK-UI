@@ -45,6 +45,7 @@
     "postinstall": "bower update",
     "prestart": "npm update",
     "test": "protractor app/tests/e2e/conf.js"
+    "test-loaddata": "protractor app/tests/e2e/loaddata_conf.js"
   },
   "dependencies": {
     "gulp-nsp": "~2.4.0"
