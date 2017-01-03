@@ -18,8 +18,8 @@ constants.PROJECT_NAME_1_MEMBER1 = {name : "abeecher", role : "siteConsumer", fu
 constants.role_for_update_member = "SiteManager"
 
 constants.file_1 = {name : "android.pdf", path : "app/src/testdata/android.pdf", mimetype : "application/pdf"};
-constants.file_2 = {name : "guide_region_midt-5.odt", path : "app/src/testdata/guide_region_midt-5.odt", mimetype : "application/vnd.oasis.opendocument.text"};
-constants.file_3 = {name : "guide_region_midt-5_toBeDeleted.odt", path : "app/src/testdata/guide_region_midt-5_toBeDeleted.odt", mimetype : "application/vnd.oasis.opendocument.text"};
+constants.file_2 = {name : "github.odt", path : "app/src/testdata/github.odt", mimetype : "application/vnd.oasis.opendocument.text"};
+constants.file_3 = {name : "github_toBeDeleted.odt", path : "app/src/testdata/github_toBeDeleted.odt", mimetype : "application/vnd.oasis.opendocument.text"};
 
 constants.folder_to_be_created_and_deleted = "sletmigigen";
 
