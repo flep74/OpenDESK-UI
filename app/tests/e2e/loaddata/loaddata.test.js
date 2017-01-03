@@ -4,15 +4,15 @@ var loginPage = require('../login/loginPage.po.js');
 describe('openESDH login page', function() {
 
 
-    //Executed before each of the "it" tests
-    beforeEach(function () {
-        console.log("loggin in");
-        loginPage.loginAsAdmin();;
-    });
 
-    //logout and wait for 2 secs
-    afterEach(function () {
-        loginPage.logout();
+
+    describe('openDESK search document', function() {
+
+        it('should be able to search and find an existing document', function() {
+
+            loginPage.loginAsAdmin();
+
+        });
     });
 
 
