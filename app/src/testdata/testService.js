@@ -17,7 +17,7 @@ angular.module('openDeskApp.testdata').factory('testService', function ($http, $
 
 
     var files = [{name : "android.pdf", path : "app/src/testdata/android.pdf", mimetype : "application/pdf"},
-                 {name : "guide_region_midt-5.odt", path : "app/src/testdata/github.odt", mimetype : "application/vnd.oasis.opendocument.text"}];
+                 {name : "github.odt", path : "app/src/testdata/github.odt", mimetype : "application/vnd.oasis.opendocument.text"}];
 
 
     return {
