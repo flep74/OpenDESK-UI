@@ -3,8 +3,9 @@
 
 
 angular.module('openDeskApp.testdata').factory('testService', function ($http, $window, alfrescoNodeUtils, siteService, cmisService, $q) {
-    var restBaseUrl = '/alfresco/s/api/';
 
+
+    var restBaseUrl = '/alfresco/service';
 
     var testSite1_name = "Magenta_1";
     var testSite1_members = [{name : "abbecher", role : "siteConsumer"}];
@@ -126,16 +127,21 @@ angular.module('openDeskApp.testdata').factory('testService', function ($http, $
 
             siteService.addMemberToSite(testSite1_name, "abeecher", "SiteConsumer");
         },
-        removeTestDate: function() {
 
-            for (var i in sites) {
+        removeTestSites: function () {
 
-                let s = sites[i];
 
-                siteService.deleteSite(s);
 
-            }
+
+                return $http.get(restBaseUrl + "/sites?method=deleteTestSites").then(function (response) {
+                    return response.data;
+                })
+
 
         }
+
+
+
+
     }
 });

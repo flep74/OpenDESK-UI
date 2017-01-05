@@ -8,33 +8,26 @@ function TestController($scope, $mdDialog, $window, testService, siteService, $s
 
     var vm = this;
 
-    //siteService.getSites().then(function(val) {
-    //    vm.sites = val;
-    //});
 
 
-    //alert("hej");
-
-
-    //testService.removeTestDate();
+    testService.removeTestSites().then (function (val) {
 
 
 
-    testService.loadSites().then(function (result) {
 
-        // the fix was that i forgot to return this line in createSite:
-        // return $http.post('/api/type/' + type + '/formprocessor', props).then(function (response) {
+        console.log("test");
 
-        console.log("hvad er rsult:" + result);
+        testService.loadSites().then(function (result) {
 
-        var sites = siteService.getSites();
-        console.log("sites");
-        console.log(sites);
+            // the fix was that i forgot to return this line in createSite:
+            // return $http.post('/api/type/' + type + '/formprocessor', props).then(function (response) {
 
-        console.log("doh");
-        testService.addDocumentsToSites().then(function (result) {
-            console.log("doh2");
-            testService.addMembersToSite();
+            var sites = siteService.getSites();
+
+            testService.addDocumentsToSites().then(function (result) {
+                testService.addMembersToSite();
+            });
+
         });
 
     });
