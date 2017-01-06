@@ -70,8 +70,8 @@ exports.config = {
     suites: {
             //projects: './projects/*.test.js'
             //login: './login/*.test.js',
-        loaddata: './loaddata/*.test.js'
-        //folders: './folders/*.test.js'
+        //loaddata: './loaddata/*.test.js'
+        folders: './folders/*.test.js'
         //documents: './documents/*.test.js'
         //projects: './projects/*.test.js',
         //members: './members/*.test.js'
