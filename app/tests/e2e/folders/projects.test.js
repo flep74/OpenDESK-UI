@@ -9,11 +9,11 @@ describe('openDESK create folder', function() {
 
 
 
-    it('login', function() {
-
-        loginPage.loginAsAdmin();
-
-    });
+    //it('login', function() {
+    //
+    //    //loginPage.loginAsAdmin();
+    //
+    //});
 
 
     it('should be able to create a new folder', function() {

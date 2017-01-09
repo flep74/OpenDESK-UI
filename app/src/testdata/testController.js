@@ -12,10 +12,11 @@ function TestController($scope, $mdDialog, $window, testService, siteService, $s
 
     testService.removeTestSites().then (function (val) {
 
-
-
-
         console.log("test");
+
+
+
+
 
         testService.loadSites().then(function (result) {
 

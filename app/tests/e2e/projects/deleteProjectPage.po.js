@@ -35,7 +35,7 @@ var DeleteProjectPage = function () {
 
                     console.log(text);
 
-                    return text.indexOf(constants.PROJECT_NAME_3) >= 0;
+                    return text.indexOf(constants.PROJECT_NAME_create_delete) >= 0;
                 });
             }).then(function (filteredElements) {
                 //filteredElements is the list of filtered elements

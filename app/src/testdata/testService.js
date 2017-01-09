@@ -11,14 +11,18 @@ angular.module('openDeskApp.testdata').factory('testService', function ($http, $
     var testSite1_members = [{name : "abbecher", role : "siteConsumer"}];
 
     var testSite2_name = "Magenta_2"
+    var testSite3_rename = "Magenta_rename"
+
 
     var sites = new Array();
     sites.push(testSite1_name );
     sites.push(testSite2_name );
+    sites.push(testSite3_rename );
 
 
     var files = [{name : "android.pdf", path : "app/src/testdata/android.pdf", mimetype : "application/pdf"},
-                 {name : "github.odt", path : "app/src/testdata/github.odt", mimetype : "application/vnd.oasis.opendocument.text"}];
+                 {name : "github.odt", path : "app/src/testdata/github.odt", mimetype : "application/vnd.oasis.opendocument.text"},
+                 {name : "github_toBeDeleted.odt", path : "app/src/testdata/github_toBeDeleted.odt", mimetype : "application/vnd.oasis.opendocument.text"}];
 
 
     return {
@@ -129,12 +133,13 @@ angular.module('openDeskApp.testdata').factory('testService', function ($http, $
         },
 
         removeTestSites: function () {
-
-
-
-
                 return $http.get(restBaseUrl + "/sites?method=deleteTestSites").then(function (response) {
-                    return response.data;
+
+                    return $http.get(restBaseUrl + "/purge").then(function (response) {
+                        console.log("response")
+                        console.log(response)
+                        return response.data;
+                    });
                 })
 
 

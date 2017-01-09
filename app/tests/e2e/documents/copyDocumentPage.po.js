@@ -8,8 +8,7 @@ var CopyDocumentPage = function () {
     
     var public = {};
     
-    console.log("rename document");
-    
+
 	public.getDocumentList = function() {
 		documentList = element.all(by.repeater('content in contents')).getText();
 	    return documentList	

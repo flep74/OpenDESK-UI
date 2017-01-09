@@ -1,6 +1,7 @@
 var globalHeaderMenu = require('../common/globalHeader.po.js');
+var constants = require('../common/constants');
 var date = new Date();
-var projectRenamed = "projektnavn-omdøbt " + date.getTime();
+
 var projectList;
 var constants = require('../common/constants');
 
@@ -26,11 +27,16 @@ var RenameProjectPage = function () {
 			element.all(by.repeater('project in vm.sites')).filter(function (elem) {
 				//Return the element or elements
 				return elem.getText().then(function (text) {
+					console.log(text);
+
 					//Match the text
 
-					return text.indexOf(constants.PROJECT_NAME_USED_FOR_RENAME_PROJECT) >= 0;
+					return text.indexOf(constants.PROJECT_NAME_RENAME) >= 0;
 				});
 			}).then(function (filteredElements) {
+
+				console.log("filteret elements")
+				console.log(filteredElements)
 				//filteredElements is the list of filtered elements
 
 				var documentOptionsBtn = filteredElements[0].all(by.css('[ng-click="vm.openMenu($mdOpenMenu, $event)"]')).first();
@@ -41,7 +47,7 @@ var RenameProjectPage = function () {
 
 				documentOptionsBtn.click();
 				browser.driver.sleep(2000);
-console.log("click1");
+				console.log("click1");
 
 				browser.driver.sleep(500);
 
@@ -51,7 +57,7 @@ console.log("click1");
 				browser.driver.sleep(500);
 
 				renameInput.clear();
-				renameInput.sendKeys(projectRenamed);
+				renameInput.sendKeys(constants.PROJECT_NAME_RENAME_NEW_NAME);
 
 				renameProjectBtn.click();
 				console.log("click3");

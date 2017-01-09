@@ -1,7 +1,7 @@
 var globalHeaderMenu = require('../common/globalHeader.po.js');
 var oeUtils = require('../common/utils');
 var date = new Date();
-var projectName = "projektnavn " + date.getTime();
+var projectName;
 var projectList;
 
 var CreateProjectPage = function () {
@@ -19,10 +19,12 @@ var CreateProjectPage = function () {
     	return projectName;
     }
 
-    public.createProject = function() {
+    public.createProject = function(name) {
+
+        projectName = name;
 
         oeUtils.emptyTrashcan();
-    	
+
     	var newProjectBtn = element(by.css('[ng-click="vm.newSite($event)"]'));
     	var projectNameInput = element(by.model('newSiteName'));
         var descriptionInput = element(by.model('newSiteDescription'));
@@ -30,7 +32,7 @@ var CreateProjectPage = function () {
 
         newProjectBtn.click();
         
-        projectNameInput.sendKeys(projectName);
+        projectNameInput.sendKeys(name);
         descriptionInput.sendKeys("Jeg er overflødig");
                
         addProjectBtn.click();

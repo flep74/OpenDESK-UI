@@ -11,11 +11,11 @@ describe('openESDH login page', function() {
 
 
 
-    it('should be able to remove a memeber', function() {
-
-        loginPage.loginAsAdmin();
-
-    });
+    //it('should be able to remove a memeber', function() {
+    //
+    //    loginPage.loginAsAdmin();
+    //
+    //});
 
 
     it('should be able to remove a memeber', function() {

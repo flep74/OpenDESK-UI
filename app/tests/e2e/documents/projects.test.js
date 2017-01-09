@@ -15,53 +15,57 @@ beforeEach(function () {
 });
 
 
+//describe('openDESK search document', function() {
+//
+//    it('should be able to search and find an existing document', function() {
+//
+//        loginPage.loginAsAdmin();
+//
+//    });
+//});
+
+
 describe('openDESK search document', function() {
 
     it('should be able to search and find an existing document', function() {
+        searchDocumentPage.searchDocument().then (function(response) {
+            expect(response === constants.file_1.name).toBe(true, "expected the result to be: " + constants.file_1.name + "instead it was: " + response);
+        });
+    });
+});
 
-        loginPage.loginAsAdmin();
+
+describe('openDESK preview document', function() {
+
+    it('should be able to search and preview an existing document', function() {
+
+
+        return browser.get("http://localhost:8000/#/projekter/" + constants.PROJECT_NAME_2 ).then (function(response) {
+            previewDocumentPage.previewDocument();
+
+            //the created folder is represented in the list
+            expect(previewDocumentPage.getPreviewHeadline()).toContain(constants.file_2.name);
+            previewDocumentPage.closeDialog();
+        });
+
+
 
     });
 });
 
-//
-//describe('openDESK search document', function() {
-//
-//    it('should be able to search and find an existing document', function() {
-//        searchDocumentPage.searchDocument().then (function(response) {
-//            expect(response === constants.file_1.name).toBe(true, "expected the result to be: " + constants.file_1.name + "instead it was: " + response);
-//        });
-//    });
-//});
 
-//
-//describe('openDESK preview document', function() {
-//
-//    it('should be able to search and preview an existing document', function() {
-//
-//
-//        return browser.get("http://localhost:8000/#/projekter/" + constants.PROJECT_NAME_2 ).then (function(response) {
-//            previewDocumentPage.previewDocument();
-//
-//            //the created folder is represented in the list
-//            expect(previewDocumentPage.getPreviewHeadline()).toContain(constants.file_2.name);
-//            previewDocumentPage.closeDialog();
-//        });
-//
-//
-//
-//    });
-//});
+describe('openDESK rename document', function() {
 
-//describe('openDESK rename document', function() {
-//
-//    it('should be able to rename an existing document', function() {
-//    	renameDocumentPage.renameDocument();
-//
-//        //the created folder is represented in the list
-//        expect(renameDocumentPage.getDocumentList()).toMatch(renameDocumentPage.getRenamedDocument());
-//    });
-//});
+    it('should be able to rename an existing document', function() {
+    	renameDocumentPage.renameDocument();
+
+        //the created folder is represented in the list
+        expect(renameDocumentPage.getDocumentList()).toMatch(renameDocumentPage.getRenamedDocument());
+    });
+});
+
+
+// todo need to be refactored to use a project we create and destroy for each test session - as the default project is not repopulated
 
 //describe('openDESK relocate a document', function() {
 //
@@ -90,31 +94,35 @@ describe('openDESK search document', function() {
 //});
 
 
-//describe('openDESK copy document', function() {
-//    it('should be able to copy an existing document to another location', function() {
-//
-//        return browser.get("http://localhost:8000/#/projekter/" + constants.PROJECT_NAME_2 ).then (function(response) {
-//            copyDocumentPage.copyDocument();
-//            //the copied file is represented in the list
-//            expect(copyDocumentPage.getDocumentList()).toMatch("Copy of " + constants.file_2.name);
-//        });
-//    });
-//});
+describe('openDESK copy document', function() {
+    it('should be able to copy an existing document to another location', function() {
 
-//describe('openDESK delete document', function() {
-//
-//    it('should be able to delete an existing document', function() {
-//
-//
-//        return browser.get("http://localhost:8000/#/projekter/" + constants.PROJECT_NAME_2 ).then (function(response) {
-//            deleteDocumentPage.deleteDocument();
-//
-//           //the created folder is represented not in the list
-//            expect(deleteDocumentPage.getDocumentList()).not.toMatch(constants.file_3.name);
-//
-//
-//
-//
-//        });
-//    });
-//});
+        return browser.get("http://localhost:8000/#/projekter/" + constants.PROJECT_NAME_2 ).then (function(response) {
+            copyDocumentPage.copyDocument();
+
+            browser.sleep(2500);
+            //the copied file is represented in the list
+            expect(copyDocumentPage.getDocumentList()).toMatch("Copy of " + constants.file_1.name);
+        });
+    });
+});
+
+
+
+describe('openDESK delete document', function() {
+
+    it('should be able to delete an existing document', function() {
+
+
+        return browser.get("http://localhost:8000/#/projekter/" + constants.PROJECT_NAME_2 ).then (function(response) {
+            deleteDocumentPage.deleteDocument();
+
+           //the created folder is represented not in the list
+            expect(deleteDocumentPage.getDocumentList()).not.toMatch(constants.file_3.name);
+
+
+
+
+        });
+    });
+});

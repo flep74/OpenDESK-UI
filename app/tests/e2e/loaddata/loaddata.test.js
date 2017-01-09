@@ -20,20 +20,9 @@ describe('openESDH login page', function() {
     it('should be able to access login page and login to user dashboard', function() {
 
 
-        browser.get("http://localhost:8000/#/testdata?mode=wipetests").then (function(response) {
-            browser.driver.sleep(5500);
+        browser.get("http://localhost:8000/#/testdata").then (function(response) {
             console.log("done");
-
-            oeUtils.emptyTrashcan();
-
-            browser.driver.sleep(10500);
-
-            browser.get("http://localhost:8000/#/testdata").then (function(response) {
-                browser.driver.sleep(5500);
-                console.log("done");
-            });
-
-
+            browser.sleep(7500);
         });
 
 
