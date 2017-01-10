@@ -37,10 +37,11 @@ exports.config = {
         // The require statement must be down here, since jasmine-reporters
         // needs jasmine to be in the global and protractor does not guarantee
         // this until inside the onPrepare function.
-        jasmine.getEnv().addReporter(new JasmineReporters.JUnitXmlReporter({
-            savePath: 'build/reports/e2e',
-            consolidateAll: false
-        }));
+        //new jasmine.JUnitXmlReporter('xmloutput', true, true)
+
+        jasmine.getEnv().addReporter(new JasmineReporters.JUnitXmlReporter(
+           'xmloutput, true, true'
+        ));
         jasmine.getEnv().addReporter(new HtmlScreenshotReporter({
             dest: "build/reports/e2e/screenshots"
         }));
