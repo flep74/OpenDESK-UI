@@ -68,28 +68,10 @@ exports.config = {
 
     },
     suites: {
-            projects: './projects/*.test.js',
+        projects: './projects/*.test.js',
             //login: './login/*.test.js',
-        //loaddata: './loaddata/*.test.js'
         folders: './folders/*.test.js',
         documents: './documents/*.test.js',
-        members: './members/*.test.js',
-        //header: './common/*.test.js',
-        //case: './cases/*.test.js',
-        //users: './users/*.test.js',
-        //admin: './admin/*.test.js'
+        members: './members/*.test.js'
     }
-    //suites: {
-    //    login: './login/*.test.js',
-    //    loaddata: './loaddata/*.test.js'
-    //    projects: './projects/*.test.js',
-    //    members: './members/*.test.js'
-    //    //header: './common/*.test.js',
-    //    //case: './cases/*.test.js',
-    //    //users: './users/*.test.js',
-    //    //admin: './admin/*.test.js'
-    //}
-
-
-    //suites : {setup : ['./loaddata/*.test.js'], all: ['./login/*.test.js']}
 };
