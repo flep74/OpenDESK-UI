@@ -1,4 +1,6 @@
-var HtmlScreenshotReporter = require('protractor-jasmine2-screenshot-reporter');
+
+var HtmlScreenshotReporter = require("protractor-jasmine2-screenshot-reporter");
+var JasmineReporters = require('jasmine-reporters');
 
 // https://www.npmjs.com/package/protractor-html-screenshot-reporter
 
@@ -29,8 +31,19 @@ exports.config = {
 
         //console.log("It's located in " + __dirname);
 
-
-
+    // The require statement must be down here, since jasmine-reporters
+            // needs jasmine to be in the global and protractor does not guarantee
+            // this until inside the onPrepare function.
+        // The require statement must be down here, since jasmine-reporters
+        // needs jasmine to be in the global and protractor does not guarantee
+        // this until inside the onPrepare function.
+        jasmine.getEnv().addReporter(new JasmineReporters.JUnitXmlReporter({
+            savePath: 'build/reports/e2e',
+            consolidateAll: false
+        }));
+        jasmine.getEnv().addReporter(new HtmlScreenshotReporter({
+            dest: "build/reports/e2e/screenshots"
+        }));
 
 
         browser.driver.manage().window().setSize(1440, 800);
@@ -70,7 +83,7 @@ exports.config = {
     suites: {
         projects: './projects/*.test.js',
             //login: './login/*.test.js',
-        folders: './folders/*.test.js',
+        folders: './folders/*.test.js'
         documents: './documents/*.test.js',
         members: './members/*.test.js'
     }
