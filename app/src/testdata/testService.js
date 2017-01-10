@@ -7,6 +7,9 @@ angular.module('openDeskApp.testdata').factory('testService', function ($http, $
 
     var restBaseUrl = '/alfresco/service';
 
+
+    // Note that OpenDeskModel in the repo should be updated according to the sites you add here
+
     var testSite1_name = "Magenta_1";
     var testSite1_members = [{name : "abbecher", role : "siteConsumer"}];
 

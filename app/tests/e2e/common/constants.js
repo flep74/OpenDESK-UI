@@ -6,7 +6,6 @@ constants.PROJECT_NAME_create_delete = "Magenta_38";
 constants.PROJECT_NAME_RENAME = "Magenta_rename";
 constants.PROJECT_NAME_RENAME_NEW_NAME = "Magenta_newname"
 
-
 constants.PROJECT_NAME_USED_FOR_MOVE = "swsdp/Presentations";
 constants.PROJECT_NAME_USED_FOR_MOVE_AFTER_MOVE = "swsdp/Agency%20Files";
 
