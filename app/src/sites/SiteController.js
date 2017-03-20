@@ -422,6 +422,7 @@ angular
                 $mdDialog.hide();
             });
         }
+        $scope.createNotification = createNotification;
     
     
         function createSiteNotification(userName, site) {

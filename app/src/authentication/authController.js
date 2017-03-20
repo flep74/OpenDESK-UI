@@ -2,7 +2,7 @@ angular
     .module('openDeskApp')
     .controller('AuthController', AuthController);
 
-function AuthController($state, $stateParams, authService, userService, $mdDialog, sessionService, $window, chatService) {
+function AuthController($state, $stateParams, authService, userService, $mdDialog, sessionService, $window, chatService, $scope) {
     var vm = this;
     var loginErrorMessage = angular.fromJson($stateParams.error);
 

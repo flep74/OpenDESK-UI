@@ -113,15 +113,16 @@ function authService($http, $window, $state, sessionService, userService) {
 
     function login(username, password) {
         var userInfo = {};
+
         return $http.post("/api/login", {
             username: username,
             password: password
         }).then(function (response) {
             userInfo.ticket = response.data.data.ticket;
+            console.log(userInfo);
             sessionService.setUserInfo(userInfo);
             return addUserToSession(username);
         }, function (reason) {
-            console.log(reason);
             return reason;
         });
     }
