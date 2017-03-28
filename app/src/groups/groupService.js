@@ -1,6 +1,6 @@
 angular.module('openDeskApp.groups').factory('groupService', GroupService);
 
-function GroupService(ALFRESCO_URI, $http, $q) {
+function GroupService(ALFRESCO_URI, $http, $q, userService) {
     var GROUP_PROXY_URI = ALFRESCO_URI.serviceApiProxy + 'groups/';
     return {
         listAllSystemGroups: listAllSystemGroups,
@@ -14,7 +14,9 @@ function GroupService(ALFRESCO_URI, $http, $q) {
         createGroup: createGroup,
         updateGroup: updateGroup,
         deleteGroup: deleteGroup,
-        uploadGroupsCSVFile: uploadGroupsCSVFile
+        uploadGroupsCSVFile: uploadGroupsCSVFile,
+        getGroupInfo: getGroupInfo,
+        getSubGroups: getSubGroups
     };
 
     /**
@@ -41,7 +43,7 @@ function GroupService(ALFRESCO_URI, $http, $q) {
             return listAllSystemGroups();
         else
             return $http.get(ALFRESCO_URI.serviceApiProxy + 'groups/list/' + type, params)
-            .then(successOrReject);
+                .then(successOrReject);
     }
 
     /**
@@ -60,6 +62,16 @@ function GroupService(ALFRESCO_URI, $http, $q) {
         return $http.get(ALFRESCO_URI.serviceApiProxy + "groups?zone=APP.DEFAULT&maxItems=250&sortBy=displayName&shortNameFilter=" + term).then(successOrReject);
     }
 
+    function getGroupInfo (shortName, groupName) {
+        return $http.post("/alfresco/service/groups", {
+            PARAM_METHOD : "getAllMembers",
+            PARAM_SITE_SHORT_NAME: shortName,
+            PARAM_GROUP_NAME: groupName
+        }).then(function(response) {
+            return response.data;
+        });
+    }
+
     /**
      * returns a group given its shortName
      * @param groupShortName
@@ -75,7 +87,33 @@ function GroupService(ALFRESCO_URI, $http, $q) {
      * @returns [authorities]
      */
     function getGroupMembers(groupShortName) {
-        return $http.get(GROUP_PROXY_URI + groupShortName + '/children?maxItems=100').then(successOrReject);
+        return $http.get(GROUP_PROXY_URI + groupShortName + '/children?maxItems=500').then(
+            function(response) {
+
+                var members = [];
+
+                // Creating an empty initial promise that always resolves itself.
+                var promises = [];
+
+                // Iterating list of items.
+                angular.forEach(response.data.data, function (member) {
+                    promises.push(userService.getPerson(member.shortName).then(function (val) {
+                        val.displayName = member.fullName;
+                        members.push(val);
+                    }));
+                });
+                return $q.all(promises).then(function(){
+                    return members;
+                });
+            }
+        );
+    }
+
+
+    // use this for groups that contain groups
+
+    function getSubGroups(groupShortName) {
+        return $http.get(GROUP_PROXY_URI + groupShortName + '/children?maxItems=500').then(successOrReject);
     }
 
     /**
@@ -136,8 +174,12 @@ function GroupService(ALFRESCO_URI, $http, $q) {
 
     function successOrReject(response) {
         if (response.status && response.status !== 200) {
+
+
             return $q.reject(response);
         }
+        //console.log("members: ");
+        //console.log(response);
         return response.data || response;
     }
 

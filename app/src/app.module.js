@@ -3,7 +3,7 @@ angular
         'ngSanitize',
         'ngMaterial',
         'ngMessages',
-			  'ngCookies',
+        'ngCookies',
         'material.wizard',
         'ui.router',
         'rt.encodeuri',
@@ -13,9 +13,11 @@ angular
         'isteven-multi-select',
         'openDeskApp.init',
         'openDeskApp.sites',
+        'openDeskApp.pd_sites',
         'openDeskApp.translations.init',
         'openDeskApp.header',
         'openDeskApp.dashboard',
+        'openDeskApp.lool',
         'openDeskApp.documents',
         'openDeskApp.administration',
         'openDeskApp.groups',
@@ -23,21 +25,25 @@ angular
         //'openDeskApp.workflows',
         'openDeskApp.systemsettings',
         'openDeskApp.search',
+
         'openDeskApp.testdata',
+
+        //'openDeskApp.templates',
+
         'openDeskApp.common.directives',
         'openDeskApp.common.directives.filter',
         'm43nu.auto-height',
         'dcbImgFallback',
-        
         'openDeskApp.notifications',
         'openDeskApp.chat',
         'openDeskApp.user',
         'openDeskApp.menu',
-        
+
         /*DO NOT REMOVE MODULES PLACEHOLDER!!!*/ //openDesk-modules
         /*LAST*/ 'openDeskApp.translations']) //TRANSLATIONS IS ALWAYS LAST!
     .config(config)
     .run(function ($rootScope, $state, $mdDialog, authService, sessionService, APP_CONFIG) {
+        var ssoLoginEnabled = false;
         angular.element(window.document)[0].title = APP_CONFIG.appName;
         $rootScope.appName = APP_CONFIG.appName;
         $rootScope.logoSrc = APP_CONFIG.logoSrc;
@@ -49,12 +55,21 @@ angular
                 return;
             }
 
-            if (authService.isAuthenticated() && authService.isAuthorized(next.data.authorizedRoles)) {
-                //We do nothing. Attempting to transition to the actual state results in call stack exception
-            } else {
-                event.preventDefault();
-                sessionService.retainCurrentLocation();
-                $state.go('login');
+            if (!authService.isAuthenticated() || !authService.isAuthorized(next.data.authorizedRoles)) {
+                if(ssoLoginEnabled) {
+                    authService.ssoLogin().then(function (response) {
+                        if (!authService.isAuthenticated() || !authService.isAuthorized(next.data.authorizedRoles)) {
+                            event.preventDefault();
+                            sessionService.retainCurrentLocation();
+                            $state.go('login');
+                        }
+                    });
+                }
+                else if (!authService.isAuthenticated() || !authService.isAuthorized(next.data.authorizedRoles)) {
+                    event.preventDefault();
+                    sessionService.retainCurrentLocation();
+                    $state.go('login');
+                }
             }
 
             // If we got any open dialogs, close them before route change
@@ -90,6 +105,19 @@ function config($stateProvider, $urlRouterProvider, USER_ROLES) {
             'content@': {
                 templateUrl: 'app/src/dashboard/view/dashboard.html',
                 controller: 'DashboardController',
+                controllerAs: 'vm'
+            }
+        },
+        data: {
+            authorizedRoles: [USER_ROLES.user]
+        }
+    }).state('administration', {
+        parent: 'site',
+        url: '/indstillinger',
+        views: {
+            'content@': {
+                templateUrl: 'app/src/admin/view/admin.html',
+                controller: 'AdminController',
                 controllerAs: 'vm'
             }
         },
@@ -183,7 +211,7 @@ function config($stateProvider, $urlRouterProvider, USER_ROLES) {
                 controller: 'UsersController'
             }
         }
-        
+
     }).state('search', {
         url: '/search',
         views: {

@@ -1,6 +1,11 @@
+
 build/reports/e2e/screenshots/report.html
 junitresults.xml
 build/*
+
+build/
+junitresults.xml
+
 logs/*
 !.gitkeep
 node_modules/
@@ -22,3 +27,4 @@ web.config
 /bin/
 ._*
 app/src/app.iml
+*.log

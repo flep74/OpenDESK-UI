@@ -1,0 +1,212 @@
+<md-dialog aria-label="Opdatér grupper i projekt" class="pd-create-site-diag">
+    <form name="membersForm" ng-submit="updatePDSiteGroups()" class="pd-site-create-form">
+        <md-toolbar>
+            <div class="md-toolbar-tools">
+                <h2>Tilføj og fjern medlemmer</h2>
+                <span flex></span>
+                <md-button class="md-icon-button" ng-click="cancel()">
+                    <i class="material-icons" aria-label="Luk dialogboks">close</i>
+                </md-button>
+            </div>
+        </md-toolbar>
+
+        <md-dialog-content>
+            <md-content class="md-padding" layout="column">
+                <div class="toolbar-small">Projektgruppe</div>
+                <md-chips ng-model="projektGruppe"
+                          md-autocomplete-snap
+                          md-require-match="true"
+                          md-on-remove="removeMember($chip, 'PD_PROJECTGROUP')"
+                          md-on-add="addMember($chip, 'PD_PROJECTGROUP')">
+                    <md-autocomplete md-selected-item="selectedProjGrpItem"
+                                     md-search-text="srchprjgrptxt"
+                                     md-items="pgitem in searchPeople(srchprjgrptxt)"
+                                     md-item-text="pgitem.firstName"
+                                     placeholder="Angiv et medlem">
+                        <span md-highlight-text="srchprjgrptxt">{{ pgitem.firstName }} {{ pgitem.lastName }}</span>
+                    </md-autocomplete>
+                    <md-chip-template>
+                        <span>
+                            <span ng-if="$chip.displayName">{{ $chip.displayName }}</span>
+                            <span ng-if="$chip.firstName">{{ $chip.firstName }} {{ $chip.lastName }}</span>
+                        </span>
+                    </md-chip-template>
+                </md-chips>
+				<div style="font-weight: bold; font-size: 90%; padding: 15px;">Tilføj eksterne medlemmer</div>
+				<div style="padding-left: 15px;" layout-gt-sm="row">
+					<md-input-container class="md-block" flex-gt-sm>
+						<label>Navn</label>
+						<input type="text" name="pgexternname" ng-model="pgexternname">
+					</md-input-container>					
+					<div flex="5" hide-xs hide-sm><!-- Spacer //--></div>
+					<md-input-container class="md-block" flex-gt-sm>
+						<label>Email</label>
+						<input type="email" name="pgexternemail" ng-model="pgexternemail" ng-pattern="/^.+@.+\..+$/">
+						 <div ng-messages="membersForm.pgexternemail.$error" role="alert">
+						  <div ng-message-exp="['pattern']">
+							Du skal indtaste en gyldig e-mail adresse.
+						  </div>
+						</div>
+					</md-input-container>
+					<div flex="5" hide-xs hide-sm><!-- Spacer //--></div>
+					<div style="position: relative; top: -25px;" class="btnAlign">
+					     <md-button class="md-raised" ng-click="addEksternToProjektGrp()">
+							Tilføj
+						 </md-button>
+					</div>
+				</div>
+				<!--/div-->
+                <!--fieldset-->
+                    <!--legend>Styregruppe</legend-->
+					<!--h4>Styregruppe</h4-->
+					<div class="toolbar-small">Styregruppe</div>
+                    <md-chips ng-model="styreGruppe"
+                              md-autocomplete-snap
+                              md-require-match="true"
+                              md-on-remove="removeMember($chip, 'PD_STEERING_GROUP')"
+                              md-on-add="addMember($chip, 'PD_STEERING_GROUP')">
+                        <md-autocomplete md-selected-item="selectedStyreGrpItem"
+                                         md-search-text="srchstrgrptxt"
+                                         md-items="sgitem in searchPeople(srchstrgrptxt)"
+                                         md-item-text="sgitem.firstName"
+                                         placeholder="Angiv et medlem">
+                            <span md-highlight-text="srchstrgrptxt">{{ sgitem.firstName }} {{ sgitem.lastName }}</span>
+                        </md-autocomplete>
+                        <md-chip-template>
+                            <span>
+                                <span ng-if="$chip.displayName">{{ $chip.displayName }}</span>
+                                <span ng-if="$chip.firstName">{{ $chip.firstName }} {{ $chip.lastName }}</span>
+                            </span>
+                        </md-chip-template>
+                    </md-chips>
+                <!--/fieldset-->
+				<div style="font-weight: bold; font-size: 90%; padding: 15px;">Tilføj eksterne medlemmer</div>
+				<div style="padding-left: 15px;" layout-gt-sm="row">
+					<md-input-container class="md-block" flex-gt-sm>
+						<label>Navn</label>
+						<input type="text" name="stexternname" ng-model="stexternname">
+					</md-input-container>					
+					<div flex="5" hide-xs hide-sm><!-- Spacer //--></div>
+					<md-input-container class="md-block" flex-gt-sm>
+						<label>Email</label>
+						<input type="email" name="stexternemail" ng-model="stexternemail">
+						<div ng-messages="membersForm.stexternemail.$error" role="alert">
+						  <div ng-message-exp="['pattern']">
+							Du skal indtaste en gyldig e-mail adresse.
+						  </div>
+						</div>
+					</md-input-container>
+					<div flex="5" hide-xs hide-sm><!-- Spacer //--></div>
+					<div style="position: relative; top: -25px;" class="btnAlign">
+					     <md-button class="md-raised" ng-click="addEksternToStyreGrp()" >
+							Tilføj
+						 </md-button>
+					</div>
+				</div>
+                <!--fieldset-->
+                    <!--legend>Arbejdsgruppe</legend-->
+					<!--h4>Arbejdsgruppe</h4-->
+					<div class="toolbar-small">Arbejdsgruppe</div>
+                    <md-chips ng-model="arbejdsGruppe"
+                              md-autocomplete-snap
+                              md-require-match="true"
+                              md-on-remove="removeMember($chip, 'PD_WORKGROUP')"
+                              md-on-add="addMember($chip, 'PD_WORKGROUP')">
+                        <md-autocomplete md-selected-item="selectedArbejdsGrpItem"
+                                         md-search-text="srchrbjdgrptxt"
+                                         md-items="agitem in searchPeople(srchrbjdgrptxt)"
+                                         md-item-text="agitem.firstName"
+                                         placeholder="Angiv et medlem">
+                            <span md-highlight-text="srchrbjdgrptxt">{{ agitem.firstName }} {{ agitem.lastName }}</span>
+                        </md-autocomplete>
+                        <md-chip-template>
+                            <span>
+                                <span ng-if="$chip.displayName">{{ $chip.displayName }}</span>
+                                <span ng-if="$chip.firstName">{{ $chip.firstName }} {{ $chip.lastName }}</span>
+                            </span>
+                        </md-chip-template>
+                    </md-chips>
+                <!--/fieldset-->
+				<div style="font-weight: bold; font-size: 90%; padding: 15px;">Tilføj eksterne medlemmer</div>
+				<div style="padding-left: 15px;" layout-gt-sm="row">
+					<md-input-container class="md-block" flex-gt-sm>
+						<label>Navn</label>
+						<input type="text" name="arbexternname" ng-model="arbexternname">
+					</md-input-container>					
+					<div flex="5" hide-xs hide-sm><!-- Spacer //--></div>
+					<md-input-container class="md-block" flex-gt-sm>
+						<label>Email</label>
+						<input type="email" name="arbexternemail" ng-model="arbexternemail">
+						<div ng-messages="membersForm.arbexternemail.$error" role="alert">
+						  <div ng-message-exp="['pattern']">
+							Du skal indtaste en gyldig e-mail adresse.
+						  </div>
+						</div>
+					</md-input-container>
+					<div flex="5" hide-xs hide-sm><!-- Spacer //--></div>
+					<div style="position: relative; top: -25px;" class="btnAlign">
+					     <md-button class="md-raised" ng-click="addEksternToArbGrp()" >
+							Tilføj
+						 </md-button>
+					</div>
+				</div>
+                <!--fieldset-->
+                    <!--legend>Følgegruppe</legend-->
+					<!--h4>Følgegruppe</h4-->
+					<div class="toolbar-small">Følgegruppe</div>
+                    <md-chips ng-model="folgeGruppe"
+                              md-autocomplete-snap
+                              md-require-match="true"
+                              md-on-remove="removeMember($chip, 'PD_MONITORS')"
+                              md-on-add="addMember($chip, 'PD_MONITORS')">
+                        <md-autocomplete md-selected-item="selectedFolgeGrpItem"
+                                         md-search-text="srchflggrptxt"
+                                         md-items="fgitem in searchPeople(srchflggrptxt)"
+                                         md-item-text="fgitem.firstName"
+                                         placeholder="Angiv et medlem">
+                            <span md-highlight-text="srchflggrptxt">{{ fgitem.firstName }} {{ fgitem.lastName }}</span>
+                        </md-autocomplete>
+                        <md-chip-template>
+                            <span>
+                                <span ng-if="$chip.displayName">{{ $chip.displayName }}</span>
+                                <span ng-if="$chip.firstName">{{ $chip.firstName }} {{ $chip.lastName }}</span>
+                            </span>
+                        </md-chip-template>
+                    </md-chips>
+                <!--/fieldset-->
+				<div style="font-weight: bold; font-size: 90%; padding: 15px;">Tilføj eksterne medlemmer</div>
+				<div style="padding-left: 15px;" layout-gt-sm="row">
+					<md-input-container class="md-block" flex-gt-sm>
+						<label>Navn</label>
+						<input type="text" name="flgexternname" ng-model="flgexternname">
+					</md-input-container>					
+					<div flex="5" hide-xs hide-sm><!-- Spacer //--></div>
+					<md-input-container class="md-block" flex-gt-sm>
+						<label>Email</label>
+						<input type="email" name="flgexternemail" ng-model="flgexternemail">
+						<div ng-messages="membersForm.flgexternemail.$error" role="alert">
+						  <div ng-message-exp="['pattern']">
+							Du skal indtaste en gyldig e-mail adresse.
+						  </div>
+						</div>
+					</md-input-container>
+					<div flex="5" hide-xs hide-sm><!-- Spacer //--></div>
+					<div style="position: relative; top: -25px;" class="btnAlign">
+					     <md-button class="md-raised" ng-click="addEksternToFlgGrp()" >
+							Tilføj
+						 </md-button>
+					</div>
+				</div>
+            </md-content>
+        </md-dialog-content>
+
+        <md-dialog-actions layout="row">
+            <md-button ng-click="cancel()">
+                Annullér
+            </md-button>
+            <span flex></span>
+            <input type="submit" class="md-button md-raised md-primary" value="Opdatér">
+        </md-dialog-actions>
+
+    </form>
+</md-dialog>
