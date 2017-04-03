@@ -8,15 +8,10 @@ angular.module('openDeskApp.documents').factory('cmisService', function ($sce, $
 
         getFolderNodes: function (path) {
 
-<<<<<<< HEAD
-    getNode: function (path) {
 
-      return $http.jsonp(cmisBaseUrl + 'root/sites/' + path + '?cmisselector=object&' + callback);
-    },
-=======
             var url = cmisBaseUrl + 'root/sites/' + path + '?cmisselector=children&succinct=true';
             $sce.trustAsResourceUrl(url);
->>>>>>> develop
+
 
             return $http.jsonp(url, {jsonpCallbackParam: 'callback'});
         },
