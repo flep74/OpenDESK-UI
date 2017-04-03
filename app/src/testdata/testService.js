@@ -2,7 +2,7 @@
 
 
 
-angular.module('openDeskApp.testdata').factory('testService', function ($http, $window, alfrescoNodeUtils, siteService, cmisService, $q) {
+angular.module('openDeskApp.testdata').factory('testService', function ($http, $window, alfrescoNodeUtils, siteService, cmisTestService, $q) {
 
 
     var restBaseUrl = '/alfresco/service';
@@ -19,8 +19,8 @@ angular.module('openDeskApp.testdata').factory('testService', function ($http, $
 
     var sites = new Array();
     sites.push(testSite1_name );
-    sites.push(testSite2_name );
-    sites.push(testSite3_rename );
+    //sites.push(testSite2_name );
+    //sites.push(testSite3_rename );
 
 
     var files = [{name : "android.pdf", path : "app/src/testdata/android.pdf", mimetype : "application/pdf"},
@@ -68,7 +68,7 @@ angular.module('openDeskApp.testdata').factory('testService', function ($http, $
                 var currentFolderNodeRef;
                 var cmisQuery = siteName + "/documentLibrary/"
 
-                return cmisService.getNode(cmisQuery).then(function (val) {
+                return cmisTestService.getNode(cmisQuery).then(function (val) {
 
                     console.log("hej: " + ":" + siteName + ":= "+ val);
 
@@ -133,20 +133,20 @@ angular.module('openDeskApp.testdata').factory('testService', function ($http, $
             // todo dynamize the addMember
 
             siteService.addMemberToSite(testSite1_name, "abeecher", "SiteConsumer");
-        },
-
-        removeTestSites: function () {
-                return $http.get(restBaseUrl + "/sites?method=deleteTestSites").then(function (response) {
-
-                    return $http.get(restBaseUrl + "/purge").then(function (response) {
-                        console.log("response")
-                        console.log(response)
-                        return response.data;
-                    });
-                })
-
-
         }
+
+        //removeTestSites: function () {
+        //        return $http.get(restBaseUrl + "/sites?method=deleteTestSites").then(function (response) {
+        //
+        //            return $http.get(restBaseUrl + "/purge").then(function (response) {
+        //                console.log("response")
+        //                console.log(response)
+        //                return response.data;
+        //            });
+        //        })
+        //
+
+        //}
 
 
 

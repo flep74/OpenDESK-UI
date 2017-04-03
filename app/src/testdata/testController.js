@@ -8,30 +8,20 @@ function TestController($scope, $mdDialog, $window, testService, siteService, $s
 
     var vm = this;
 
-
-
-    testService.removeTestSites().then (function (val) {
-
-        console.log("test");
-
-
-
-
-
         testService.loadSites().then(function (result) {
 
             // the fix was that i forgot to return this line in createSite:
             // return $http.post('/api/type/' + type + '/formprocessor', props).then(function (response) {
 
-            var sites = siteService.getSites();
-
-            testService.addDocumentsToSites().then(function (result) {
-                testService.addMembersToSite();
-            });
+            //var sites = siteService.getSites();
+            //
+            //testService.addDocumentsToSites().then(function (result) {
+            //    testService.addMembersToSite();
+            //});
 
         });
 
-    });
+
 
 
     // TODO setup wait for the loadSites to be finished before the documents are added

@@ -7,6 +7,7 @@ angular.module('openDeskApp.documents').factory('cmisService', function ($http) 
     return {
 
         getChildren: function ($sce, path) {
+            console.log("heeeeey")
 
             var url = cmisBaseUrl + 'root/' + path + '?cmisselector=children&succinct=true';
             $sce.trustAsResourceUrl(url);

@@ -7,7 +7,7 @@ angular.module('openDeskApp.documents').factory('cmisService', function ($sce, $
     return {
 
         getFolderNodes: function (path) {
-
+            console.log("heeeeeeeey")
 
             var url = cmisBaseUrl + 'root/sites/' + path + '?cmisselector=children&succinct=true';
             $sce.trustAsResourceUrl(url);

@@ -6,10 +6,9 @@ var JasmineReporters = require('jasmine-reporters');
 
 exports.config = {
     capabilities: {'browserName': 'chrome'},
-<<<<<<< HEAD
+
     "stopSpecOnExpectationFailure": true,
-=======
->>>>>>> develop
+
     /*multiCapabilities: [
      {'browserName': 'chrome'},
      {'browserName': 'firefox'},
