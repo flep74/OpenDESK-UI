@@ -23,382 +23,8 @@ angular
         $scope.role_mapping_reverse["1"] = "SiteManager";
         $scope.role_mapping_reverse["2"] = "SiteCollaborator";
         $scope.role_mapping_reverse["3"] = "SiteConsumer";
-        
-<<<<<<< HEAD
-        function SiteController($scope, $http, $mdDialog, $window, siteService, cmisService, $stateParams, $location, documentPreviewService, alfrescoDownloadService, documentService, notificationsService, authService, $rootScope, searchService) {
 
-			var vm = this;
 			$scope.contents = [];
-			$scope.members = [];
-			$scope.roles = [];
-			$scope.roles = [];
-
-
-			console.log("$stateParams");
-			console.log($stateParams);
-
-			vm.project = $stateParams.projekt;
-
-			// Compile paths for breadcrumb directive
-
-			vm.paths = buildBreadCrumbPath();
-			
-			function buildBreadCrumbPath() {
-				var paths = [
-					{
-						title: 'Projekter',
-						link: '#/projekter'
-					},
-					{
-						title: vm.project,
-						link: '#/projekter/' + vm.project
-					}
-				];
-				var pathArr = $stateParams.path.split('/');
-				var pathLink = '/';
-				for (var a in pathArr) {
-					if (pathArr[a] !== '') {
-						paths.push({
-							title: pathArr[a],
-							link: '#/projekter/' + vm.project + pathLink + pathArr[a]
-						});
-						pathLink = pathLink + pathArr[a] + '/';
-					};
-				};
-				return paths;
-            };
-
-			vm.path = $stateParams.path;
-
-
-			vm.cancel = function () {
-				$mdDialog.cancel();
-			};
-
-			vm.reload = function () {
-				$window.location.reload();
-			};
-			
-			var originatorEv;
-			vm.openMenu = function($mdOpenMenu, event) {
-			  originatorEv = event;
-			  $mdOpenMenu(event);
-			};
-
-			vm.loadSiteData = function () {
-				var r = siteService.loadSiteData(vm.project);
-
-				r.then(function(result) {
-					vm.project_title = result;
-				});
-
-			}
-			vm.loadSiteData();
-
-			vm.loadContents = function() {
-
-				var currentFolderNodeRef_cmisQuery = $stateParams.projekt + "/documentLibrary/" + $stateParams.path;
-
-				cmisService.getNode(currentFolderNodeRef_cmisQuery).then(function (val) {
-					var currentFolderNodeRef = val.data.properties["alfcmis:nodeRef"].value;
-
-
-					console.log(currentFolderNodeRef);
-
-					cmisService.getFolderNodes($stateParams.projekt + "/documentLibrary/" + $stateParams.path).then(function (val) {
-						var result = [];
-						for (var x in val.data.objects) {
-
-							var ref = val.data.objects[x].object.succinctProperties["alfcmis:nodeRef"];
-
-							documentService.getPath(ref.split("/")[3]).then(function(val) {});
-
-							var shortRef = ref.split("/")[3];
-
-							result.push({
-								name: val.data.objects[x].object.succinctProperties["cmis:name"],
-								contentType: val.data.objects[x].object.succinctProperties["cmis:objectTypeId"],
-								nodeRef: val.data.objects[x].object.succinctProperties["alfcmis:nodeRef"],
-								parentNodeRef: currentFolderNodeRef,
-								shortRef: shortRef
-							});
-						}
-						$scope.contents = result;
-					});
-				});
-			}
-
-
-			vm.loadContents();
-
-			vm.createFolder = function (folderName) {
-
-				var currentFolderNodeRef;
-				var cmisQuery = $stateParams.projekt + "/documentLibrary/" + $stateParams.path;
-
-				cmisService.getNode(cmisQuery).then(function (val) {
-					currentFolderNodeRef = val.data.properties["alfcmis:nodeRef"].value;
-
-					var props = {
-						prop_cm_name: folderName,
-						prop_cm_title: folderName,
-						alf_destination: currentFolderNodeRef
-					};
-
-					siteService.createFolder("cm:folder", props);
-
-					vm.loadContents();
-				});
-				
-				$mdDialog.hide();
-			}
-			
-			vm.newFolderDialog = function (event) {
-				$mdDialog.show({
-					templateUrl: 'app/src/sites/view/newFolder.tmpl.html',
-					parent: angular.element(document.body),
-					targetEvent: event,
-					scope: $scope,
-        			preserveScope: true,
-					clickOutsideToClose: true
-				});
-			};
-
-			vm.uploadDocumentsDialog = function (event) {
-				$mdDialog.show({
-					templateUrl: 'app/src/sites/view/uploadDocuments.tmpl.html',
-					parent: angular.element(document.body),
-					targetEvent: event,
-					scope: $scope,        // use parent scope in template
-					preserveScope: true,  // do not forget this if use parent scope
-					clickOutsideToClose: true
-				});
-			};
-
-			vm.reviewDocumentsDialog = function (event, nodeRef) {
-
-				$scope.nodeRef = nodeRef;
-
-				$mdDialog.show({
-					templateUrl: 'app/src/sites/view/reviewDocument.tmpl.html',
-					parent: angular.element(document.body),
-					targetEvent: event,
-					scope: $scope,        // use parent scope in template
-					preserveScope: true,  // do not forget this if use parent scope
-					clickOutsideToClose: true
-				});
-			};
-
-			vm.deleteFileDialog = function (event, nodeRef) {
-  			var confirm = $mdDialog.confirm()
-  			      .title('Slette denne fil?')
-  			      .textContent('')
-  			      .ariaLabel('Slet dokument')
-  			      .targetEvent(event)
-  			      .ok('Slet')
-  			      .cancel('Nej, tak');
-  			
-  			$mdDialog.show(confirm).then(function() {
-  			  vm.deleteFile(nodeRef);
-  			});
-			}
-
-			vm.reviewDocument = function (document, reviewer, comment) {
-
-
-			}
-
-			vm.deleteFile = function (nodeRef) {
-				siteService.deleteFile(nodeRef).then(function (val) {
-					vm.loadContents();
-				});
-				
-				$mdDialog.hide();
-			}
-
-			vm.deleteFoldereDialog = function (event, nodeRef) {
-			   var confirm = $mdDialog.confirm()
-			         .title('Slette denne mappe?')
-			         .textContent('Dette vil slette mappen med alt dens indhold')
-			         .ariaLabel('Slet mappe')
-			         .targetEvent(event)
-			         .ok('Slet')
-			         .cancel('Nej, tak');
-
-			   $mdDialog.show(confirm).then(function() {
-			     vm.deleteFolder(nodeRef);
-			   });
-			};
-
-			vm.deleteFolder = function (nodeRef) {
-				siteService.deleteFolder(nodeRef).then(function (val) {
-					vm.loadContents();
-				});
-				
-				$mdDialog.hide();
-			}
-
-			vm.createReviewNotification = function (documentNodeRef, receiver, subject, comment) {
-
-				var s = documentNodeRef.split("/");
-				var ref = (s[3])
-
-				notificationsService.addWFNotice(authService.getUserInfo().user.userName, receiver, subject, comment, ref, "wf").then (function (val) {
-					$mdDialog.hide();
-				});
-
-
-			}
-
-
-			
-
-			vm.loadMembers = function () {
-				siteService.getSiteMembers(vm.project).then(function (val) {
-					$scope.members = val;
-				});
-			}
-			vm.loadMembers();
-
-
-			vm.newMember = function (event) {
-				$mdDialog.show({
-					templateUrl: 'app/src/sites/view/newMember.tmpl.html',
-					parent: angular.element(document.body),
-					targetEvent: event,
-					scope: $scope,        // use parent scope in template
-					preserveScope: true,  // do not forget this if use parent scope
-					clickOutsideToClose: true
-				});
-			};
-
-			vm.upload = function (files) {
-
-				var cmisQuery = $stateParams.projekt  + "/documentLibrary/" + $stateParams.path;
-
-
-				cmisService.getNode(cmisQuery).then(function (val) {
-
-					var currentFolderNodeRef = val.data.properties["alfcmis:nodeRef"].value;
-
-					for (var i = 0; i < files.length; i++) {
-						siteService.uploadFiles(files[i], currentFolderNodeRef).then(function(response){
-							vm.loadContents();
-							} );
-					}
-					$mdDialog.cancel();
-
-				});
-			};
-
-			vm.loadSiteRoles = function() {
-				siteService.getSiteRoles(vm.project).then(function(response){
-					$scope.roles = response.siteRoles;
-				});
-			};
-			vm.loadSiteRoles();
-
-			vm.currentDialogUser = '';
-
-			vm.updateMemberRoleDialog = function(event, user) {
-				vm.currentDialogUser = user;				
-				$mdDialog.show({
-					templateUrl: 'app/src/sites/view/updateRole.tmpl.html',
-					parent: angular.element(document.body),
-					scope: $scope,
-					preserveScope: true,
-					targetEvent: event,
-					clickOutsideToClose: true
-				});
-			}
-			
-			vm.updateRoleOnSiteMember = function(siteName, userName, role) {
-				siteService.updateRoleOnSiteMember(siteName, userName, role).then(function(val){
-					vm.loadMembers();
-				});
-				$mdDialog.hide();
-			};
-
-			vm.addMemberToSite = function(siteName, userName, role) {
-				siteService.addMemberToSite(siteName, userName, role).then(function(val){
-					vm.loadMembers();
-				});
-				$mdDialog.hide();
-			};
-			
-			vm.deleteMemberDialog = function (siteName, userName) {
-			   var confirm = $mdDialog.confirm()
-			         .title('Slette dette medlem?')
-			         .textContent('')
-			         .ariaLabel('Slet medlem')
-			         .targetEvent(event)
-			         .ok('Slet')
-			         .cancel('Nej, tak');
-
-			   $mdDialog.show(confirm).then(function() {
-			     vm.removeMemberFromSite(siteName, userName);
-			   });
-			};
-
-			vm.removeMemberFromSite = function(siteName, userName) {
-				siteService.removeMemberFromSite(siteName, userName).then(function(val){
-					vm.loadMembers();
-				});
-				
-				$mdDialog.hide();
-			};
-
-			vm.getAllUsers = function(filter) {
-				return siteService.getAllUsers(filter)
-			};
-
-			vm.previewDocument = function previewDocument(nodeRef){
-				documentPreviewService.previewDocument(nodeRef);
-			}
-
-			vm.downloadDocument = function downloadDocument(nodeRef, name){
-				alfrescoDownloadService.downloadFile(nodeRef, name);
-			}
-			
-			vm.moveFileDialog = function moveFileDialog(event, nodeRef, parentNodeRef) {
-				vm.source = [];
-				vm.source.push(nodeRef);
-				vm.parentId = parentNodeRef;
-				
-				$mdDialog.show({
-					templateUrl: 'app/src/sites/view/moveNodeRefs.tmpl.html',
-					parent: angular.element(document.body),
-					scope: $scope,
-					preserveScope: true,
-					targetEvent: event,
-					clickOutsideToClose: true
-				}).then(function(){
-					console.log('Dispatching move action');
-				}, function(){
-					console.log('You cancelled a move action');
-				});
-			}
-			
-			vm.copyFileDialog = function copyFileDialog(event, nodeRef, parentNodeRef) {
-				vm.source = [];
-				vm.source.push(nodeRef);
-				vm.parentId = parentNodeRef;
-				
-				$mdDialog.show({
-					templateUrl: 'app/src/sites/view/copyNodeRefs.tmpl.html',
-					parent: angular.element(document.body),
-					scope: $scope,
-					preserveScope: true,
-					targetEvent: event,
-					clickOutsideToClose: true
-				}).then(function(){
-					console.log('Dispatching copy action');
-				}, function(){
-					console.log('You cancelled a copy action');
-				});
-			}
-=======
-        $scope.contents = [];
         $scope.history = [];
         $scope.members = [];
         $scope.allMembers = [];
@@ -435,7 +61,6 @@ angular
         vm.goToLOEditPage = goToLOEditPage;
         vm.updateSiteName = updateSiteName;
         vm.createDocumentFromTemplate = createDocumentFromTemplate;
->>>>>>> develop
 
         $scope.searchProjects = searchProjects;
 
@@ -621,7 +246,7 @@ angular
         vm.addThumbnailUrl = function () {
             $scope.contents.forEach(function(item) {
                 if(item.contentType === "cmis:folder"){
-                    item.thumbNailURL = fileUtilsService.getFolderIcon(24);
+                    // item.thumbNailURL = fileUtilsService.getFolderIcon(24);
                 }else{
                     item.thumbNailURL = fileUtilsService.getFileIconByMimetype(item.mimeType, 24);
                 }
@@ -804,8 +429,6 @@ angular
 
 
         vm.deleteFoldereDialog = function (event, nodeRef) {
-			$mdDialog.hide();
-
             var confirm = $mdDialog.confirm()
                 .title('Slette denne mappe?')
                 .textContent('Dette vil slette mappen med alt dens indhold')
@@ -824,6 +447,8 @@ angular
             siteService.deleteFolder(nodeRef).then(function (val) {
                 vm.loadContents();
             });
+
+            $mdDialog.hide();
         };
     
     
@@ -1029,7 +654,12 @@ angular
             vm.source = [];
             vm.source.push(nodeRef);
             vm.parentId = parentNodeRef;
-    
+            console.log("vm.parentId");
+            console.log(vm.parentId);
+
+            console.log("nodeRef");
+            console.log(nodeRef);
+
             $mdDialog.show({
                 templateUrl: 'app/src/sites/view/moveNodeRefs.tmpl.html',
                 parent: angular.element(document.body),
