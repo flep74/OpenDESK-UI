@@ -4,22 +4,22 @@ angular
     .module('openDeskApp.testdata')
     .controller('TestController', TestController);
 
-function TestController($scope, $mdDialog, $window, testService, siteService, $stateParams, searchService, $rootScope, documentService) {
+function TestController($scope, $mdDialog, $window, testService, siteService, $stateParams, searchService, $rootScope, documentService, $timeout) {
 
     var vm = this;
 
-        testService.loadSites().then(function (result) {
+
 
             // the fix was that i forgot to return this line in createSite:
             // return $http.post('/api/type/' + type + '/formprocessor', props).then(function (response) {
 
-            //var sites = siteService.getSites();
-            //
-            //testService.addDocumentsToSites().then(function (result) {
-            //    testService.addMembersToSite();
-            //});
 
-        });
+            var sites = siteService.getSites().then (function (result) {
+                testService.addDocumentsToSites().then(function (result) {
+                    testService.addMembersToSite();
+                });
+            });
+
 
 
 

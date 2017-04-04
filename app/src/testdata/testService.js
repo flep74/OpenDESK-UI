@@ -2,7 +2,7 @@
 
 
 
-angular.module('openDeskApp.testdata').factory('testService', function ($http, $window, alfrescoNodeUtils, siteService, cmisTestService, $q) {
+angular.module('openDeskApp.testdata').factory('testService', function ($http, $window, alfrescoNodeUtils, siteService, cmisService, $q) {
 
 
     var restBaseUrl = '/alfresco/service';
@@ -19,8 +19,8 @@ angular.module('openDeskApp.testdata').factory('testService', function ($http, $
 
     var sites = new Array();
     sites.push(testSite1_name );
-    //sites.push(testSite2_name );
-    //sites.push(testSite3_rename );
+    sites.push(testSite2_name );
+    sites.push(testSite3_rename );
 
 
     var files = [{name : "android.pdf", path : "app/src/testdata/android.pdf", mimetype : "application/pdf"},
@@ -50,7 +50,7 @@ angular.module('openDeskApp.testdata').factory('testService', function ($http, $
 
                  console.log("creating site" + s);
 
-                 promises.push(siteService.createSite(s, "blabla"));
+                 promises.push(siteService.createSite(s, s, "blabla"));
 
              }
 
@@ -68,7 +68,7 @@ angular.module('openDeskApp.testdata').factory('testService', function ($http, $
                 var currentFolderNodeRef;
                 var cmisQuery = siteName + "/documentLibrary/"
 
-                return cmisTestService.getNode(cmisQuery).then(function (val) {
+                return cmisService.getNode(cmisQuery).then(function (val) {
 
                     console.log("hej: " + ":" + siteName + ":= "+ val);
 

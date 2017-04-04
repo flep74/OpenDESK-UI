@@ -37,7 +37,7 @@
     "karma-junit-reporter": "^0.2.2",
     "karma-phantomjs-launcher": "^0.2.1",
     "phantomjs": "^1.9.18",
-    "protractor": "^4.0.14",
+    "protractor": "^5.1.1",
     "protractor-jasmine2-screenshot-reporter": "^0.3.2",
     "selenium-webdriver": "^2.47.1",
     "shelljs": "^0.2.6",
