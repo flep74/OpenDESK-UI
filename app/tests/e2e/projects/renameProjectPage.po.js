@@ -9,7 +9,7 @@ var RenameProjectPage = function () {
     
     var public = {};
     
-    console.log("create");
+    console.log("create_rename");
     
 	public.getProjectList = function() {
 		projectList = element.all(by.repeater('project in vm.sites'));

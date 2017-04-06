@@ -10,7 +10,7 @@ var DeleteProjectPage = function () {
     
     var public = {};
     
-    console.log("delete");
+    console.log("delete1");
     
 	public.getProjectList = function() {
 
