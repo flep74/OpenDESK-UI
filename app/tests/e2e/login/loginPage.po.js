@@ -8,11 +8,11 @@ var LoginPage = function () {
      * Default login as admin.
      */
     public.login = function() {
-        public.loginAs(browser.params.loginDetails.admin.username, browser.params.loginDetails.admin.password);
+        public.loginAsAdmin();
     };
 
     public.loginAsAdmin = function () {
-        public.loginAs(browser.params.loginDetails.admin.username, browser.params.loginDetails.admin.password);
+        public.loginAsUser('admin');
     };
 
     public.loginAsUser = function (user) {
