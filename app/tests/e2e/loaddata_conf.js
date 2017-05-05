@@ -1,4 +1,4 @@
-var HtmlScreenshotReporter = require('protractor-jasmine2-screenshot-reporter');
+// var HtmlScreenshotReporter = require('protractor-jasmine2-screenshot-reporter');
 
 // https://www.npmjs.com/package/protractor-html-screenshot-reporter
 
@@ -22,7 +22,7 @@ exports.config = {
     seleniumPort: 4840,
 
     /* Due to issues with slow Selenium startup due to RNG, see http://stackoverflow.com/questions/14058111/selenium-server-doesnt-bind-to-socket-after-being-killed-with-sigterm. */
-    seleniumArgs: ["-Djava.security.egd=file:/dev/./urandom"],
+    //seleniumArgs: ["-Djava.security.egd=file:/dev/./urandom"],
 
     onPrepare: function () {
 
@@ -45,7 +45,7 @@ exports.config = {
             try {
                 return require('../../../../loginDetails.json');
             } catch (e) {
-                return {'username': 'admin', 'password': 'bullerfisk1992'};
+                return {'username': 'admin', 'password': 'admin'};
             }
         })();
         // Add a screenshot reporter and store screenshots to `/tmp/screnshots`:

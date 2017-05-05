@@ -1,11 +1,11 @@
-var HtmlScreenshotReporter = require('protractor-jasmine2-screenshot-reporter');
+//var HtmlScreenshotReporter = require('protractor-jasmine2-screenshot-reporter');
 
 exports.config = {
     capabilities: {'browserName': 'chrome'},
 
-    chromeDriver:"/Users/flemmingheidepedersen/src/OpenDESK-UI/node_modules/protractor/node_modules/webdriver-manager/selenium/chromedriver_2.29",
+    //chromeDriver:"/Users/flemmingheidepedersen/src/OpenDESK-UI/node_modules/protractor/node_modules/webdriver-manager/selenium/chromedriver_2.29",
 
-    seleniumServerJar: '/Users/flemmingheidepedersen/src/OpenDESK-UI/node_modules/protractor/node_modules/webdriver-manager/selenium/selenium-server-standalone-3.3.1.jar',
+    //seleniumServerJar: '/Users/flemmingheidepedersen/src/OpenDESK-UI/node_modules/protractor/node_modules/webdriver-manager/selenium/selenium-server-standalone-3.3.1.jar',
 
     baseUrl: 'http://localhost:9000/', 
     /*multiCapabilities: [
@@ -27,7 +27,7 @@ exports.config = {
     seleniumPort: 4840,
 
     /* Due to issues with slow Selenium startup due to RNG, see http://stackoverflow.com/questions/14058111/selenium-server-doesnt-bind-to-socket-after-being-killed-with-sigterm. */
-    seleniumArgs: ["-Djava.security.egd=file:/dev/./urandom"],
+    //seleniumArgs: ["-Djava.security.egd=file:/dev/./urandom"],
 
     onPrepare: function () {
         browser.driver.manage().window().setSize(1440, 800);
@@ -42,7 +42,7 @@ exports.config = {
             try {
                 return require('../../../../loginDetails.json');
             } catch (e) {
-                return {'username': 'admin', 'password': 'bullerfisk1992'};
+                return {'username': 'admin', 'password': 'admin'};
             }
         })();
         // Add a screenshot reporter and store screenshots to `/tmp/screnshots`:
