@@ -12,7 +12,7 @@ var LoginPage = function () {
     };
 
     public.loginAsAdmin = function () {
-        public.loginAs("admin", "bullerfisk1992");
+        public.loginAs(browser.params.loginDetails.admin.username, browser.params.loginDetails.admin.password);
     };
 
     public.loginAsUser = function (user) {

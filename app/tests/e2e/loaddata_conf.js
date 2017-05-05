@@ -45,7 +45,7 @@ exports.config = {
             try {
                 return require('../../../../loginDetails.json');
             } catch (e) {
-                return {'username': 'admin', 'password': 'admin'};
+                return { 'admin' : {'username': 'admin', 'password': 'admin'} };
             }
         })();
         // Add a screenshot reporter and store screenshots to `/tmp/screnshots`:
