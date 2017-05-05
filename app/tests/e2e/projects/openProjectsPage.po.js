@@ -8,9 +8,10 @@ var OpenProjectPage = function () {
 
     public.openProjects = function() {
     	
-    	var goToProjectBtn = element(by.css('a[href^="#/projekter"]')); 
+    	var goToProjectBtn = element(by.css('a[href^="#!/projekter"]'));
 
-        goToProjectBtn.click();
+        return goToProjectBtn.click();
+
         
     }; 
     

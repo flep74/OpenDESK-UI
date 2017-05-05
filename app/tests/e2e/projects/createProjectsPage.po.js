@@ -20,10 +20,12 @@ var CreateProjectPage = function () {
     }
 
     public.createProject = function(name) {
-
+        console.log("create2");
         projectName = name;
 
-        oeUtils.emptyTrashcan();
+        // oeUtils.emptyTrashcan();
+
+        console.log(element.all);
 
     	var newProjectBtn = element(by.css('[ng-click="vm.newSite($event)"]'));
     	var projectNameInput = element(by.model('newSiteName'));
