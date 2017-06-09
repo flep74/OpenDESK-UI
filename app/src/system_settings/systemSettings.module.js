@@ -32,7 +32,6 @@ function config(systemSettingsPagesServiceProvider, $stateProvider, USER_ROLES) 
             }
         }
     }).state('administration.systemsettings.document', {
-        parent: 'site',
         url: '/projekter/:projekt{path:.*}',
         views: {
             'content@': {
